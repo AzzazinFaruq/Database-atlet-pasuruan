@@ -20,7 +20,7 @@ func main() {
 	router.POST("/login", controllers.Login)
 
 	protected := router.Group("/api")
-	protected.Use(middleware.AuthMiddleware())
+	// protected.Use(middleware.AuthMiddleware())
 
 	// auth middleware
 	protected.POST("/logout", controllers.Logout)
