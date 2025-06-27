@@ -48,6 +48,20 @@ func GetAllCabor(c *gin.Context) {
 	})
 }
 
+func GetCaborList(c *gin.Context) {
+	var cabor []models.Cabor
+	
+	if err := setup.DB.Find(&cabor).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "status": false})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data":   cabor,
+		"status": true,
+	})
+}
+
 func GetCaborById(c *gin.Context) {
 	id := c.Param("id")
 	

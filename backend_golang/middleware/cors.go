@@ -9,10 +9,10 @@ import (
 
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		feURL := os.Getenv("FE_URL")
-		if feURL == "" {
-			feURL = "http:
-		}
+	feURL := os.Getenv("FE_URL")
+	if feURL == "" {
+		feURL = "http://localhost:3000"
+	}
 
 		c.Writer.Header().Set("Access-Control-Allow-Origin", feURL)
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")

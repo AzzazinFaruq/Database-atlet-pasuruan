@@ -17,6 +17,8 @@ type Atlet struct {
 	NamaOrtu     string    `json:"nama_ortu"`
 	Sekolah      int8      `json:"sekolah"`
 	NamaSekolah  string    `json:"nama_sekolah"`
+	CaborID      *uint     `json:"cabor_id"`
+	Cabor        *Cabor    `gorm:"foreignKey:CaborID;references:Id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
 	CreatedAt    time.Time `gorm:"type:timestamp;default:current_timestamp"`
 	UpdatedAt    time.Time `gorm:"type:timestamp;default:current_timestamp on update current_timestamp"`
 }

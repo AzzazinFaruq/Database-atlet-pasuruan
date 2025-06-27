@@ -52,6 +52,7 @@ func main() {
 
 		protected.POST("/cabor/add", controllers.AddCabor)
 		protected.GET("/cabor", controllers.GetAllCabor)
+		protected.GET("/cabor/list", controllers.GetCaborList)
 		protected.GET("/cabor/:id", controllers.GetCaborById)
 		protected.PUT("/cabor/update/:id", controllers.UpdateCabor)
 		protected.DELETE("/cabor/delete/:id", controllers.DeleteCabor)
