@@ -5,33 +5,7 @@ import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import axios from "axios";
-<<<<<<< HEAD
-=======
 
-const CABANG_OLAHRAGA = [
-  "HAPKIDO",
-];
-
-const NOMOR_PERTANDINGAN = {
-  HAPKIDO: [
-    "Individual Hyung PUTRI",
-    "Individual Hyung PUTRA",
-    "Bezpasangan Hoehnsul PUTRI",
-    "Bezpasangan Hoehnsul PUTRA",
-    "Hospital Gaya Bebas (Free Style)",
-  ],
-};
-
-axios.get("http://localhost:8080/api/atlet")
-.then((res) => {
-  athletes=res.data.data
-})
-.catch((err) => {
-  console.error('Gagal ambil data:', err);
-});
-
-var athletes = [];
->>>>>>> 33b1d36 (set axios)
 
 const AthletesPage = () => {
   const [nomorList, setNomorList] = useState([]);
@@ -236,11 +210,7 @@ const AthletesPage = () => {
                     >
                       <img
                         src={athlete.foto_3x4}
-<<<<<<< HEAD
-                        alt={athlete.foto_3x4}
-=======
                         alt={athlete.foto_bebas}
->>>>>>> 33b1d36 (set axios)
                         className="w-full h-full object-cover"
                       />
                     </div>
