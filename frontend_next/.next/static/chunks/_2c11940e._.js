@@ -509,10 +509,14 @@ const AthletesPage = ()=>{
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$navbar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 lineNumber: 123,
 =======
                 lineNumber: 75,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                lineNumber: 75,
+>>>>>>> 33b1d36 (set axios)
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -529,10 +533,14 @@ const AthletesPage = ()=>{
                     }, void 0, false, {
                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         lineNumber: 126,
 =======
                         lineNumber: 78,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                        lineNumber: 78,
+>>>>>>> 33b1d36 (set axios)
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -574,10 +582,14 @@ const AthletesPage = ()=>{
                                             }, void 0, true, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 lineNumber: 141,
 =======
                                                 lineNumber: 102,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                lineNumber: 102,
+>>>>>>> 33b1d36 (set axios)
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -609,10 +621,14 @@ const AthletesPage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                     lineNumber: 165,
 =======
                                                     lineNumber: 104,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                    lineNumber: 104,
+>>>>>>> 33b1d36 (set axios)
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
@@ -624,8 +640,11 @@ const AthletesPage = ()=>{
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         lineNumber: 140,
 =======
+=======
+>>>>>>> 33b1d36 (set axios)
                                         lineNumber: 92,
                                         columnNumber: 13
                                     }, this),
@@ -638,7 +657,10 @@ const AthletesPage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
                                         lineNumber: 109,
+<<<<<<< HEAD
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+>>>>>>> 33b1d36 (set axios)
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -686,6 +708,7 @@ const AthletesPage = ()=>{
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 lineNumber: 198,
                                                 columnNumber: 15
                                             }, this),
@@ -719,6 +742,8 @@ const AthletesPage = ()=>{
                                         fileName: "[project]/app/daftar-atlet/page.js",
                                         lineNumber: 179,
 =======
+=======
+>>>>>>> 33b1d36 (set axios)
                                                 lineNumber: 117,
                                                 columnNumber: 17
                                             }, this)
@@ -730,17 +755,24 @@ const AthletesPage = ()=>{
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
                                         lineNumber: 115,
+<<<<<<< HEAD
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+>>>>>>> 33b1d36 (set axios)
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 lineNumber: 139,
 =======
                                 lineNumber: 91,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                lineNumber: 91,
+>>>>>>> 33b1d36 (set axios)
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -827,16 +859,23 @@ const AthletesPage = ()=>{
                                         }, void 0, false, {
                                             fileName: "[project]/app/daftar-atlet/page.js",
                                             lineNumber: 152,
+<<<<<<< HEAD
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+>>>>>>> 33b1d36 (set axios)
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         lineNumber: 228,
 =======
                                         lineNumber: 151,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                        lineNumber: 151,
+>>>>>>> 33b1d36 (set axios)
                                         columnNumber: 13
                                     }, this),
                                     "Tambah Atlet"
@@ -844,20 +883,28 @@ const AthletesPage = ()=>{
                             }, void 0, true, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 lineNumber: 220,
 =======
                                 lineNumber: 126,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                lineNumber: 126,
+>>>>>>> 33b1d36 (set axios)
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         lineNumber: 138,
 =======
                         lineNumber: 90,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                        lineNumber: 90,
+>>>>>>> 33b1d36 (set axios)
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -884,19 +931,27 @@ const AthletesPage = ()=>{
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                     lineNumber: 262,
 =======
                                                     lineNumber: 181,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                    lineNumber: 181,
+>>>>>>> 33b1d36 (set axios)
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 lineNumber: 256,
 =======
                                                 lineNumber: 175,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                lineNumber: 175,
+>>>>>>> 33b1d36 (set axios)
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -911,10 +966,14 @@ const AthletesPage = ()=>{
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                         lineNumber: 269,
 =======
                                                         lineNumber: 188,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                        lineNumber: 188,
+>>>>>>> 33b1d36 (set axios)
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -926,48 +985,68 @@ const AthletesPage = ()=>{
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                         lineNumber: 278,
 =======
                                                         lineNumber: 197,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                        lineNumber: 197,
+>>>>>>> 33b1d36 (set axios)
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 lineNumber: 268,
 =======
                                                 lineNumber: 187,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                                lineNumber: 187,
+>>>>>>> 33b1d36 (set axios)
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         lineNumber: 255,
 =======
                                         lineNumber: 174,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                        lineNumber: 174,
+>>>>>>> 33b1d36 (set axios)
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     lineNumber: 249,
 =======
                                     lineNumber: 168,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                    lineNumber: 168,
+>>>>>>> 33b1d36 (set axios)
                                     columnNumber: 17
                                 }, this)
                             }, athlete.id, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 lineNumber: 248,
 =======
                                 lineNumber: 167,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                lineNumber: 167,
+>>>>>>> 33b1d36 (set axios)
                                 columnNumber: 15
                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "col-span-full text-center py-12",
@@ -976,28 +1055,40 @@ const AthletesPage = ()=>{
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 lineNumber: 291,
 =======
                                 lineNumber: 210,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                lineNumber: 210,
+>>>>>>> 33b1d36 (set axios)
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                             lineNumber: 290,
 =======
                             lineNumber: 209,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                            lineNumber: 209,
+>>>>>>> 33b1d36 (set axios)
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         lineNumber: 245,
 =======
                         lineNumber: 164,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                        lineNumber: 164,
+>>>>>>> 33b1d36 (set axios)
                         columnNumber: 9
                     }, this),
                     filteredAthletes.length > athletesPerPage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,10 +1107,14 @@ const AthletesPage = ()=>{
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 lineNumber: 299,
 =======
                                 lineNumber: 218,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                lineNumber: 218,
+>>>>>>> 33b1d36 (set axios)
                                 columnNumber: 13
                             }, this),
                             Array.from({
@@ -1035,10 +1130,14 @@ const AthletesPage = ()=>{
                                 }, page, false, {
                                     fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     lineNumber: 316,
 =======
                                     lineNumber: 235,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                    lineNumber: 235,
+>>>>>>> 33b1d36 (set axios)
                                     columnNumber: 15
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1054,49 +1153,69 @@ const AthletesPage = ()=>{
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 lineNumber: 335,
 =======
                                 lineNumber: 254,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                                lineNumber: 254,
+>>>>>>> 33b1d36 (set axios)
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                         lineNumber: 298,
 =======
                         lineNumber: 217,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                        lineNumber: 217,
+>>>>>>> 33b1d36 (set axios)
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 lineNumber: 125,
 =======
                 lineNumber: 77,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                lineNumber: 77,
+>>>>>>> 33b1d36 (set axios)
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$footer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
                 lineNumber: 359,
 =======
                 lineNumber: 278,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+                lineNumber: 278,
+>>>>>>> 33b1d36 (set axios)
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/daftar-atlet/page.js",
 <<<<<<< HEAD
+<<<<<<< HEAD
         lineNumber: 114,
 =======
         lineNumber: 66,
 >>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
+=======
+        lineNumber: 66,
+>>>>>>> 33b1d36 (set axios)
         columnNumber: 5
     }, this);
 };
