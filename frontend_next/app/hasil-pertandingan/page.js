@@ -50,7 +50,6 @@ const allResults = [
   },
 ];
 
-// Fungsi untuk mendapatkan nilai medali
 const getMedal = (position) => {
   if (position === 1) return "EMAS";
   if (position === 2) return "PERAK";
@@ -67,6 +66,7 @@ const ResultsPage = () => {
   const [filterCabor, setFilterCabor] = useState("");
   const [filterNomor, setFilterNomor] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [newResult, setNewResult] = useState({
     cabor: "",
     nomor: "",
@@ -100,9 +100,14 @@ const ResultsPage = () => {
       const matchesCabor =
         filterCabor === "" || result.cabangOlahraga === filterCabor;
       const matchesNomor = filterNomor === "" || result.nomor === filterNomor;
-      return matchesCabor && matchesNomor;
+      const matchesSearch =
+        searchQuery === "" ||
+        result.cabangOlahraga.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        result.nomor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getMedal(result.medali).toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCabor && matchesNomor && matchesSearch;
     });
-  }, [filterCabor, filterNomor]);
+  }, [filterCabor, filterNomor, searchQuery]);
 
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
@@ -130,7 +135,6 @@ const ResultsPage = () => {
     }));
   };
 
-  // Fungsi untuk menghapus atlet
   const removeAthlete = (index) => {
     if (newResult.atlet.length <= 1) return;
     setNewResult((prev) => {
@@ -173,7 +177,6 @@ const ResultsPage = () => {
           HASIL PERTANDINGAN
         </h1>
 
-        {/* Filter */}
         <div className="mb-8 flex flex-col md:flex-row gap-4 items-start">
           <div className="flex-1 flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
@@ -184,7 +187,6 @@ const ResultsPage = () => {
                 style={{
                   borderColor: "var(--color-gray-300)",
                   backgroundColor: "var(--color-white)",
-                  paddingTop: "1.5rem",
                 }}
               >
                 <option value="">Semua Cabang Olahraga</option>
@@ -194,12 +196,6 @@ const ResultsPage = () => {
                   </option>
                 ))}
               </select>
-              <span
-                className="absolute left-3 top-3 text-xs pointer-events-none"
-                style={{ color: "var(--color-gray-500)" }}
-              >
-                Cabang Olahraga
-              </span>
               <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                 <svg
                   className="w-4 h-4"
@@ -223,7 +219,6 @@ const ResultsPage = () => {
                 style={{
                   borderColor: "var(--color-gray-300)",
                   backgroundColor: "var(--color-white)",
-                  paddingTop: "1.5rem",
                 }}
                 disabled={!filterCabor}
               >
@@ -234,12 +229,6 @@ const ResultsPage = () => {
                   </option>
                 ))}
               </select>
-              <span
-                className="absolute left-3 top-3 text-xs pointer-events-none"
-                style={{ color: "var(--color-gray-500)" }}
-              >
-                Nomor Pertandingan
-              </span>
               <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                 <svg
                   className="w-4 h-4"
@@ -256,9 +245,39 @@ const ResultsPage = () => {
             </div>
           </div>
 
+          <div className="relative w-full md:w-64">
+            <input
+              type="text"
+              placeholder="Cari hasil pertandingan..."
+              className="w-full p-3 rounded-lg border"
+              style={{
+                borderColor: "var(--color-gray-300)",
+                backgroundColor: "var(--color-white)",
+              }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+
           <button
             onClick={() => setShowModal(true)}
-            className="px-4 py-3 rounded-lg flex items-center justify-center gap-2"
+            className="px-4 py-3 rounded-lg flex items-center justify-center gap-2 whitespace-nowrap"
             style={{
               backgroundColor: "var(--color-primary)",
               color: "white",
@@ -280,13 +299,10 @@ const ResultsPage = () => {
           </button>
         </div>
 
-        {/* Modal Form */}
         {showModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-2xl w-full max-w-2xl">
               <div className="p-6">
-
-                {/* Cabang Olahraga */}
                 <div className="mb-4">
                   <label
                     className="block text-sm font-medium mb-1"
@@ -319,7 +335,6 @@ const ResultsPage = () => {
                   </datalist>
                 </div>
 
-                {/* Nomor Pertandingan */}
                 <div className="mb-4">
                   <label
                     className="block text-sm font-medium mb-1"
@@ -352,7 +367,6 @@ const ResultsPage = () => {
                   </datalist>
                 </div>
 
-                {/* Atlet */}
                 <div className="mb-4">
                   <label
                     className="block text-sm font-medium mb-1"
@@ -368,7 +382,7 @@ const ResultsPage = () => {
                           onChange={(e) =>
                             handleAthleteChange(index, "id", e.target.value)
                           }
-                          className="w-full p-3 rounded-lg border pr-10 appearance-none" // Tambahkan appearance-none di sini
+                          className="w-full p-3 rounded-lg border pr-10 appearance-none"
                           style={{
                             borderColor: "var(--color-gray-300)",
                           }}
@@ -407,7 +421,6 @@ const ResultsPage = () => {
                         }}
                         placeholder="Posisi"
                       />
-                      {/* Delete Button */}
                       {newResult.atlet.length > 1 && (
                         <button
                           type="button"
@@ -453,7 +466,6 @@ const ResultsPage = () => {
                   </button>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => setShowModal(false)}
@@ -480,7 +492,6 @@ const ResultsPage = () => {
           </div>
         )}
 
-        {/* Table */}
         <div className="overflow-x-auto rounded-lg shadow-lg mb-8">
           <table
             className="w-full"
@@ -573,7 +584,6 @@ const ResultsPage = () => {
           </table>
         </div>
 
-        {/* Pagination */}
         <div className="flex justify-center items-center space-x-2 mb-8">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

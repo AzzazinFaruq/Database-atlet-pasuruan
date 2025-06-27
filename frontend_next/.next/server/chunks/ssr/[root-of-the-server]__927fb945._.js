@@ -502,7 +502,6 @@ const allResults = [
         tanggal: "16/06/2025"
     }
 ];
-// Fungsi untuk mendapatkan nilai medali
 const getMedal = (position)=>{
     if (position === 1) return "EMAS";
     if (position === 2) return "PERAK";
@@ -517,6 +516,7 @@ const ResultsPage = ()=>{
     const [filterCabor, setFilterCabor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [filterNomor, setFilterNomor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [showModal, setShowModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [newResult, setNewResult] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
         cabor: "",
         nomor: "",
@@ -560,11 +560,13 @@ const ResultsPage = ()=>{
         return allResults.filter((result)=>{
             const matchesCabor = filterCabor === "" || result.cabangOlahraga === filterCabor;
             const matchesNomor = filterNomor === "" || result.nomor === filterNomor;
-            return matchesCabor && matchesNomor;
+            const matchesSearch = searchQuery === "" || result.cabangOlahraga.toLowerCase().includes(searchQuery.toLowerCase()) || result.nomor.toLowerCase().includes(searchQuery.toLowerCase()) || getMedal(result.medali).toLowerCase().includes(searchQuery.toLowerCase());
+            return matchesCabor && matchesNomor && matchesSearch;
         });
     }, [
         filterCabor,
-        filterNomor
+        filterNomor,
+        searchQuery
     ]);
     const indexOfLastResult = currentPage * resultsPerPage;
     const indexOfFirstResult = indexOfLastResult - resultsPerPage;
@@ -591,7 +593,6 @@ const ResultsPage = ()=>{
                 ]
             }));
     };
-    // Fungsi untuk menghapus atlet
     const removeAthlete = (index)=>{
         if (newResult.atlet.length <= 1) return;
         setNewResult((prev)=>{
@@ -626,7 +627,7 @@ const ResultsPage = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$navbar$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                lineNumber: 162,
+                lineNumber: 166,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -642,7 +643,7 @@ const ResultsPage = ()=>{
                         children: "HASIL PERTANDINGAN"
                     }, void 0, false, {
                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                        lineNumber: 165,
+                        lineNumber: 169,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -660,8 +661,7 @@ const ResultsPage = ()=>{
                                                 className: "w-full p-3 rounded-lg border appearance-none",
                                                 style: {
                                                     borderColor: "var(--color-gray-300)",
-                                                    backgroundColor: "var(--color-white)",
-                                                    paddingTop: "1.5rem"
+                                                    backgroundColor: "var(--color-white)"
                                                 },
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -669,7 +669,7 @@ const ResultsPage = ()=>{
                                                         children: "Semua Cabang Olahraga"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 190,
+                                                        lineNumber: 192,
                                                         columnNumber: 17
                                                     }, this),
                                                     uniqueCabors.map((cabor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -677,24 +677,13 @@ const ResultsPage = ()=>{
                                                             children: cabor
                                                         }, index, false, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 192,
+                                                            lineNumber: 194,
                                                             columnNumber: 19
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 180,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "absolute left-3 top-3 text-xs pointer-events-none",
-                                                style: {
-                                                    color: "var(--color-gray-500)"
-                                                },
-                                                children: "Cabang Olahraga"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 197,
+                                                lineNumber: 183,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -709,23 +698,23 @@ const ResultsPage = ()=>{
                                                         clipRule: "evenodd"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 209,
+                                                        lineNumber: 205,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 204,
+                                                    lineNumber: 200,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 203,
+                                                lineNumber: 199,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 179,
+                                        lineNumber: 182,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -737,8 +726,7 @@ const ResultsPage = ()=>{
                                                 className: "w-full p-3 rounded-lg border appearance-none",
                                                 style: {
                                                     borderColor: "var(--color-gray-300)",
-                                                    backgroundColor: "var(--color-white)",
-                                                    paddingTop: "1.5rem"
+                                                    backgroundColor: "var(--color-white)"
                                                 },
                                                 disabled: !filterCabor,
                                                 children: [
@@ -747,7 +735,7 @@ const ResultsPage = ()=>{
                                                         children: "Semua Nomor Pertandingan"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 230,
+                                                        lineNumber: 225,
                                                         columnNumber: 17
                                                     }, this),
                                                     uniqueNomors.map((nomor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -755,24 +743,13 @@ const ResultsPage = ()=>{
                                                             children: nomor
                                                         }, index, false, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 232,
+                                                            lineNumber: 227,
                                                             columnNumber: 19
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 219,
-                                                columnNumber: 15
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "absolute left-3 top-3 text-xs pointer-events-none",
-                                                style: {
-                                                    color: "var(--color-gray-500)"
-                                                },
-                                                children: "Nomor Pertandingan"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 237,
+                                                lineNumber: 215,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -787,34 +764,86 @@ const ResultsPage = ()=>{
                                                         clipRule: "evenodd"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 249,
+                                                        lineNumber: 238,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 244,
+                                                    lineNumber: 233,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 243,
+                                                lineNumber: 232,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 218,
+                                        lineNumber: 214,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                lineNumber: 178,
+                                lineNumber: 181,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "relative w-full md:w-64",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        type: "text",
+                                        placeholder: "Cari hasil pertandingan...",
+                                        className: "w-full p-3 rounded-lg border",
+                                        style: {
+                                            borderColor: "var(--color-gray-300)",
+                                            backgroundColor: "var(--color-white)"
+                                        },
+                                        value: searchQuery,
+                                        onChange: (e)=>setSearchQuery(e.target.value)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hasil-pertandingan/page.js",
+                                        lineNumber: 249,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute inset-y-0 right-3 flex items-center pointer-events-none",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                            className: "w-4 h-4 text-gray-400",
+                                            fill: "none",
+                                            stroke: "currentColor",
+                                            viewBox: "0 0 24 24",
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                strokeLinecap: "round",
+                                                strokeLinejoin: "round",
+                                                strokeWidth: "2",
+                                                d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/hasil-pertandingan/page.js",
+                                                lineNumber: 268,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/hasil-pertandingan/page.js",
+                                            lineNumber: 261,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/hasil-pertandingan/page.js",
+                                        lineNumber: 260,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/hasil-pertandingan/page.js",
+                                lineNumber: 248,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setShowModal(true),
-                                className: "px-4 py-3 rounded-lg flex items-center justify-center gap-2",
+                                className: "px-4 py-3 rounded-lg flex items-center justify-center gap-2 whitespace-nowrap",
                                 style: {
                                     backgroundColor: "var(--color-primary)",
                                     color: "white"
@@ -831,25 +860,25 @@ const ResultsPage = ()=>{
                                             clipRule: "evenodd"
                                         }, void 0, false, {
                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                            lineNumber: 273,
+                                            lineNumber: 292,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 267,
+                                        lineNumber: 286,
                                         columnNumber: 13
                                     }, this),
                                     "Hasil Pertandingan"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                lineNumber: 259,
+                                lineNumber: 278,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                        lineNumber: 177,
+                        lineNumber: 180,
                         columnNumber: 9
                     }, this),
                     showModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -870,7 +899,7 @@ const ResultsPage = ()=>{
                                                 children: "Cabang Olahraga"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 291,
+                                                lineNumber: 307,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -893,7 +922,7 @@ const ResultsPage = ()=>{
                                                 placeholder: "Masukkan cabang olahraga"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 297,
+                                                lineNumber: 313,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("datalist", {
@@ -902,18 +931,18 @@ const ResultsPage = ()=>{
                                                         value: cabor
                                                     }, index, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 317,
+                                                        lineNumber: 333,
                                                         columnNumber: 23
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 315,
+                                                lineNumber: 331,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 290,
+                                        lineNumber: 306,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -927,7 +956,7 @@ const ResultsPage = ()=>{
                                                 children: "Nomor Pertandingan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 324,
+                                                lineNumber: 339,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -950,7 +979,7 @@ const ResultsPage = ()=>{
                                                 placeholder: "Masukkan nomor pertandingan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 330,
+                                                lineNumber: 345,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("datalist", {
@@ -959,18 +988,18 @@ const ResultsPage = ()=>{
                                                         value: nomor
                                                     }, index, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 350,
+                                                        lineNumber: 365,
                                                         columnNumber: 23
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 348,
+                                                lineNumber: 363,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 323,
+                                        lineNumber: 338,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -984,7 +1013,7 @@ const ResultsPage = ()=>{
                                                 children: "Atlet"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 357,
+                                                lineNumber: 371,
                                                 columnNumber: 19
                                             }, this),
                                             newResult.atlet.map((athlete, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -996,8 +1025,7 @@ const ResultsPage = ()=>{
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                                     value: athlete.id,
                                                                     onChange: (e)=>handleAthleteChange(index, "id", e.target.value),
-                                                                    className: "w-full p-3 rounded-lg border pr-10 appearance-none" // Tambahkan appearance-none di sini
-                                                                    ,
+                                                                    className: "w-full p-3 rounded-lg border pr-10 appearance-none",
                                                                     style: {
                                                                         borderColor: "var(--color-gray-300)"
                                                                     },
@@ -1007,7 +1035,7 @@ const ResultsPage = ()=>{
                                                                             children: "Pilih Atlet"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                            lineNumber: 376,
+                                                                            lineNumber: 390,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         athletes.map((a)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1015,13 +1043,13 @@ const ResultsPage = ()=>{
                                                                                 children: a.name
                                                                             }, a.id, false, {
                                                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                                lineNumber: 378,
+                                                                                lineNumber: 392,
                                                                                 columnNumber: 29
                                                                             }, this))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                    lineNumber: 366,
+                                                                    lineNumber: 380,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1036,23 +1064,23 @@ const ResultsPage = ()=>{
                                                                             clipRule: "evenodd"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                            lineNumber: 389,
+                                                                            lineNumber: 403,
                                                                             columnNumber: 29
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                        lineNumber: 384,
+                                                                        lineNumber: 398,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                    lineNumber: 383,
+                                                                    lineNumber: 397,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 365,
+                                                            lineNumber: 379,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1067,7 +1095,7 @@ const ResultsPage = ()=>{
                                                             placeholder: "Posisi"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 397,
+                                                            lineNumber: 411,
                                                             columnNumber: 23
                                                         }, this),
                                                         newResult.atlet.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1086,23 +1114,23 @@ const ResultsPage = ()=>{
                                                                     clipRule: "evenodd"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                    lineNumber: 424,
+                                                                    lineNumber: 437,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                lineNumber: 418,
+                                                                lineNumber: 431,
                                                                 columnNumber: 27
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 412,
+                                                            lineNumber: 425,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, index, true, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 364,
+                                                    lineNumber: 378,
                                                     columnNumber: 21
                                                 }, this)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1124,25 +1152,25 @@ const ResultsPage = ()=>{
                                                             clipRule: "evenodd"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 446,
+                                                            lineNumber: 459,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 440,
+                                                        lineNumber: 453,
                                                         columnNumber: 21
                                                     }, this),
                                                     "Tambah Atlet"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 434,
+                                                lineNumber: 447,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 356,
+                                        lineNumber: 370,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1157,7 +1185,7 @@ const ResultsPage = ()=>{
                                                 children: "Batal"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 458,
+                                                lineNumber: 470,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1172,29 +1200,29 @@ const ResultsPage = ()=>{
                                                 children: "Simpan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 467,
+                                                lineNumber: 479,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 457,
+                                        lineNumber: 469,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                lineNumber: 287,
+                                lineNumber: 305,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                            lineNumber: 286,
+                            lineNumber: 304,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                        lineNumber: 285,
+                        lineNumber: 303,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1220,7 +1248,7 @@ const ResultsPage = ()=>{
                                                 children: "Cabang Olahraga"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 494,
+                                                lineNumber: 505,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1231,7 +1259,7 @@ const ResultsPage = ()=>{
                                                 children: "Nomor"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 500,
+                                                lineNumber: 511,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1242,7 +1270,7 @@ const ResultsPage = ()=>{
                                                 children: "Medali"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 506,
+                                                lineNumber: 517,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1253,7 +1281,7 @@ const ResultsPage = ()=>{
                                                 children: "Updates"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 512,
+                                                lineNumber: 523,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1263,18 +1291,18 @@ const ResultsPage = ()=>{
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                lineNumber: 518,
+                                                lineNumber: 529,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                        lineNumber: 493,
+                                        lineNumber: 504,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                    lineNumber: 492,
+                                    lineNumber: 503,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1288,7 +1316,7 @@ const ResultsPage = ()=>{
                                                     children: result.cabangOlahraga
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 530,
+                                                    lineNumber: 541,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1296,7 +1324,7 @@ const ResultsPage = ()=>{
                                                     children: result.nomor
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 531,
+                                                    lineNumber: 542,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1306,12 +1334,12 @@ const ResultsPage = ()=>{
                                                         children: getMedal(result.medali)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 534,
+                                                        lineNumber: 545,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 532,
+                                                    lineNumber: 543,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1319,7 +1347,7 @@ const ResultsPage = ()=>{
                                                     children: result.tanggal
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 549,
+                                                    lineNumber: 560,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1341,49 +1369,49 @@ const ResultsPage = ()=>{
                                                                     d: "M9 5l7 7-7 7"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                    lineNumber: 560,
+                                                                    lineNumber: 571,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                                lineNumber: 553,
+                                                                lineNumber: 564,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                            lineNumber: 552,
+                                                            lineNumber: 563,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                        lineNumber: 551,
+                                                        lineNumber: 562,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                                    lineNumber: 550,
+                                                    lineNumber: 561,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, result.id, true, {
                                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                                            lineNumber: 526,
+                                            lineNumber: 537,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                    lineNumber: 524,
+                                    lineNumber: 535,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/hasil-pertandingan/page.js",
-                            lineNumber: 485,
+                            lineNumber: 496,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                        lineNumber: 484,
+                        lineNumber: 495,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1401,7 +1429,7 @@ const ResultsPage = ()=>{
                                 children: "Previous"
                             }, void 0, false, {
                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                lineNumber: 578,
+                                lineNumber: 588,
                                 columnNumber: 11
                             }, this),
                             Array.from({
@@ -1416,7 +1444,7 @@ const ResultsPage = ()=>{
                                     children: page
                                 }, page, false, {
                                     fileName: "[project]/app/hasil-pertandingan/page.js",
-                                    lineNumber: 595,
+                                    lineNumber: 605,
                                     columnNumber: 13
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1431,30 +1459,30 @@ const ResultsPage = ()=>{
                                 children: "Next"
                             }, void 0, false, {
                                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                                lineNumber: 613,
+                                lineNumber: 623,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/hasil-pertandingan/page.js",
-                        lineNumber: 577,
+                        lineNumber: 587,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                lineNumber: 164,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$footer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/hasil-pertandingan/page.js",
-                lineNumber: 634,
+                lineNumber: 644,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/hasil-pertandingan/page.js",
-        lineNumber: 153,
+        lineNumber: 157,
         columnNumber: 5
     }, this);
 };

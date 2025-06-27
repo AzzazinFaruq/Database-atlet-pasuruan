@@ -18,13 +18,14 @@ const NOMOR_PERTANDINGAN = {
   ],
 };
 
-axios.get("http://localhost:8080/api/atlet")
-.then((res) => {
-  athletes=res.data.data
-})
-.catch((err) => {
-  console.error('Gagal ambil data:', err);
-});
+axios
+  .get("http://localhost:8080/api/atlet")
+  .then((res) => {
+    athletes = res.data.data;
+  })
+  .catch((err) => {
+    console.error("Gagal ambil data:", err);
+  });
 
 var athletes = [];
 
@@ -32,6 +33,7 @@ const AthletesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCabor, setFilterCabor] = useState("");
   const [filterNomor, setFilterNomor] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const athletesPerPage = 9;
 
@@ -45,9 +47,17 @@ const AthletesPage = () => {
       const matchesCabor =
         filterCabor === "" || athlete.cabangOlahraga === filterCabor;
       const matchesNomor = filterNomor === "" || athlete.nomor === filterNomor;
-      return matchesCabor && matchesNomor;
+      const matchesSearch =
+        searchQuery === "" ||
+        athlete.nama.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        athlete.cabangOlahraga
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        (athlete.nomor &&
+          athlete.nomor.toLowerCase().includes(searchQuery.toLowerCase()));
+      return matchesCabor && matchesNomor && matchesSearch;
     });
-  }, [filterCabor, filterNomor]);
+  }, [filterCabor, filterNomor, searchQuery]);
 
   // Pagination
   const indexOfLastAthlete = currentPage * athletesPerPage;
@@ -104,7 +114,6 @@ const AthletesPage = () => {
                 style={{
                   borderColor: "var(--color-gray-300)",
                   backgroundColor: "var(--color-white)",
-                  paddingTop: "1.5rem",
                 }}
               >
                 <option value="">Semua Cabang Olahraga</option>
@@ -114,12 +123,6 @@ const AthletesPage = () => {
                   </option>
                 ))}
               </select>
-              <span
-                className="absolute left-3 top-3 text-xs pointer-events-none"
-                style={{ color: "var(--color-gray-500)" }}
-              >
-                Cabang Olahraga
-              </span>
               <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                 <svg
                   className="w-4 h-4"
@@ -143,7 +146,6 @@ const AthletesPage = () => {
                 style={{
                   borderColor: "var(--color-gray-300)",
                   backgroundColor: "var(--color-white)",
-                  paddingTop: "1.5rem",
                 }}
                 disabled={!filterCabor}
               >
@@ -154,12 +156,6 @@ const AthletesPage = () => {
                   </option>
                 ))}
               </select>
-              <span
-                className="absolute left-3 top-3 text-xs pointer-events-none"
-                style={{ color: "var(--color-gray-500)" }}
-              >
-                Nomor Pertandingan
-              </span>
               <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                 <svg
                   className="w-4 h-4"
@@ -176,9 +172,39 @@ const AthletesPage = () => {
             </div>
           </div>
 
+          <div className="relative w-full md:w-64">
+            <input
+              type="text"
+              placeholder="Cari atlet..."
+              className="w-full p-3 rounded-lg border"
+              style={{
+                borderColor: "var(--color-gray-300)",
+                backgroundColor: "var(--color-white)",
+              }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+              <svg
+                className="w-4 h-4 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+
           <Link
             href="/daftar-atlet/form"
-            className="px-4 py-3 rounded-lg flex items-center justify-center gap-2"
+            className="px-4 py-3 rounded-lg flex items-center justify-center gap-2 whitespace-nowrap"
             style={{
               backgroundColor: "var(--color-primary)",
               color: "white",
