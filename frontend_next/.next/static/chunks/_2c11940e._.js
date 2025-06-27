@@ -560,7 +560,7 @@ const AthletesPage = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$navbar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/daftar-atlet/page.js",
-                lineNumber: 125,
+                lineNumber: 123,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -576,171 +576,214 @@ const AthletesPage = ()=>{
                         children: "DAFTAR ATLET"
                     }, void 0, false, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 128,
+                        lineNumber: 126,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mb-8 flex flex-col md:flex-row gap-4",
+                        className: "mb-8 flex flex-col md:flex-row gap-4 items-start",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex-1 relative",
+                                className: "flex-1 flex flex-col md:flex-row gap-4",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        value: filterCabor,
-                                        onChange: handleFilterCaborChange,
-                                        className: "w-full p-3 rounded-lg border appearance-none",
-                                        style: {
-                                            borderColor: "var(--color-gray-300)",
-                                            backgroundColor: "var(--color-white)",
-                                            paddingTop: "1.5rem"
-                                        },
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex-1 relative",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "",
-                                                children: "Semua Cabang Olahraga"
-                                            }, void 0, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                value: filterCabor,
+                                                onChange: handleFilterCaborChange,
+                                                className: "w-full p-3 rounded-lg border appearance-none",
+                                                style: {
+                                                    borderColor: "var(--color-gray-300)",
+                                                    backgroundColor: "var(--color-white)",
+                                                    paddingTop: "1.5rem"
+                                                },
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "",
+                                                        children: "Semua Cabang Olahraga"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/daftar-atlet/page.js",
+                                                        lineNumber: 151,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    CABANG_OLAHRAGA.map((cabor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: cabor,
+                                                            children: cabor
+                                                        }, index, false, {
+                                                            fileName: "[project]/app/daftar-atlet/page.js",
+                                                            lineNumber: 153,
+                                                            columnNumber: 19
+                                                        }, this))
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 152,
+                                                lineNumber: 141,
                                                 columnNumber: 15
                                             }, this),
-                                            CABANG_OLAHRAGA.map((cabor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: cabor,
-                                                    children: cabor
-                                                }, index, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "absolute left-3 top-3 text-xs pointer-events-none",
+                                                style: {
+                                                    color: "var(--color-gray-500)"
+                                                },
+                                                children: "Cabang Olahraga"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/daftar-atlet/page.js",
+                                                lineNumber: 158,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute inset-y-0 right-3 flex items-center pointer-events-none",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                    className: "w-4 h-4",
+                                                    viewBox: "0 0 20 20",
+                                                    fill: "currentColor",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                        fillRule: "evenodd",
+                                                        d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                                        clipRule: "evenodd"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/daftar-atlet/page.js",
+                                                        lineNumber: 170,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                                    lineNumber: 154,
+                                                    lineNumber: 165,
                                                     columnNumber: 17
-                                                }, this))
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/daftar-atlet/page.js",
+                                                lineNumber: 164,
+                                                columnNumber: 15
+                                            }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 142,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "absolute left-3 top-3 text-xs pointer-events-none",
-                                        style: {
-                                            color: "var(--color-gray-500)"
-                                        },
-                                        children: "Cabang Olahraga"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 159,
+                                        lineNumber: 140,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "absolute inset-y-0 right-3 flex items-center pointer-events-none",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                            className: "w-4 h-4",
-                                            viewBox: "0 0 20 20",
-                                            fill: "currentColor",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                fillRule: "evenodd",
-                                                d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
-                                                clipRule: "evenodd"
+                                        className: "flex-1 relative",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                value: filterNomor,
+                                                onChange: handleFilterNomorChange,
+                                                className: "w-full p-3 rounded-lg border appearance-none",
+                                                style: {
+                                                    borderColor: "var(--color-gray-300)",
+                                                    backgroundColor: "var(--color-white)",
+                                                    paddingTop: "1.5rem"
+                                                },
+                                                disabled: !filterCabor,
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "",
+                                                        children: "Semua Nomor Pertandingan"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/daftar-atlet/page.js",
+                                                        lineNumber: 191,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    uniqueNomors.map((nomor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: nomor,
+                                                            children: nomor
+                                                        }, index, false, {
+                                                            fileName: "[project]/app/daftar-atlet/page.js",
+                                                            lineNumber: 193,
+                                                            columnNumber: 19
+                                                        }, this))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/daftar-atlet/page.js",
+                                                lineNumber: 180,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "absolute left-3 top-3 text-xs pointer-events-none",
+                                                style: {
+                                                    color: "var(--color-gray-500)"
+                                                },
+                                                children: "Nomor Pertandingan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 167,
-                                                columnNumber: 17
+                                                lineNumber: 198,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "absolute inset-y-0 right-3 flex items-center pointer-events-none",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                    className: "w-4 h-4",
+                                                    viewBox: "0 0 20 20",
+                                                    fill: "currentColor",
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                        fillRule: "evenodd",
+                                                        d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                                        clipRule: "evenodd"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/daftar-atlet/page.js",
+                                                        lineNumber: 210,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/daftar-atlet/page.js",
+                                                    lineNumber: 205,
+                                                    columnNumber: 17
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/daftar-atlet/page.js",
+                                                lineNumber: 204,
+                                                columnNumber: 15
                                             }, this)
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/daftar-atlet/page.js",
-                                            lineNumber: 166,
-                                            columnNumber: 15
-                                        }, this)
-                                    }, void 0, false, {
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 165,
+                                        lineNumber: 179,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 141,
+                                lineNumber: 139,
                                 columnNumber: 11
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex-1 relative",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                href: "/daftar-atlet/form",
+                                className: "px-4 py-3 rounded-lg flex items-center justify-center gap-2",
+                                style: {
+                                    backgroundColor: "var(--color-primary)",
+                                    color: "white"
+                                },
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        value: filterNomor,
-                                        onChange: handleFilterNomorChange,
-                                        className: "w-full p-3 rounded-lg border appearance-none",
-                                        style: {
-                                            borderColor: "var(--color-gray-300)",
-                                            backgroundColor: "var(--color-white)",
-                                            paddingTop: "1.5rem"
-                                        },
-                                        disabled: !filterCabor,
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "",
-                                                children: "Semua Nomor Pertandingan"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 188,
-                                                columnNumber: 15
-                                            }, this),
-                                            uniqueNomors.map((nomor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: nomor,
-                                                    children: nomor
-                                                }, index, false, {
-                                                    fileName: "[project]/app/daftar-atlet/page.js",
-                                                    lineNumber: 190,
-                                                    columnNumber: 17
-                                                }, this))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 177,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "absolute left-3 top-3 text-xs pointer-events-none",
-                                        style: {
-                                            color: "var(--color-gray-500)"
-                                        },
-                                        children: "Nomor Pertandingan"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 195,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "absolute inset-y-0 right-3 flex items-center pointer-events-none",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                            className: "w-4 h-4",
-                                            viewBox: "0 0 20 20",
-                                            fill: "currentColor",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                                fillRule: "evenodd",
-                                                d: "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
-                                                clipRule: "evenodd"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 203,
-                                                columnNumber: 17
-                                            }, this)
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        className: "h-5 w-5",
+                                        viewBox: "0 0 20 20",
+                                        fill: "currentColor",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            fillRule: "evenodd",
+                                            d: "M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z",
+                                            clipRule: "evenodd"
                                         }, void 0, false, {
                                             fileName: "[project]/app/daftar-atlet/page.js",
-                                            lineNumber: 202,
+                                            lineNumber: 234,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 201,
+                                        lineNumber: 228,
                                         columnNumber: 13
-                                    }, this)
+                                    }, this),
+                                    "Tambah Atlet"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 176,
+                                lineNumber: 220,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 140,
+                        lineNumber: 138,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -766,12 +809,12 @@ const AthletesPage = ()=>{
                                                     className: "w-full h-full object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                                    lineNumber: 231,
+                                                    lineNumber: 262,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 225,
+                                                lineNumber: 256,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,7 +828,7 @@ const AthletesPage = ()=>{
                                                         children: athlete.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                                        lineNumber: 238,
+                                                        lineNumber: 269,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -796,29 +839,29 @@ const AthletesPage = ()=>{
                                                         children: athlete.sport
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                                        lineNumber: 247,
+                                                        lineNumber: 278,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 237,
+                                                lineNumber: 268,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 224,
+                                        lineNumber: 255,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                    lineNumber: 218,
+                                    lineNumber: 249,
                                     columnNumber: 17
                                 }, this)
                             }, athlete.id, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 217,
+                                lineNumber: 248,
                                 columnNumber: 15
                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "col-span-full text-center py-12",
@@ -826,17 +869,17 @@ const AthletesPage = ()=>{
                                 children: "Tidak ada atlet yang ditemukan"
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 260,
+                                lineNumber: 291,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/daftar-atlet/page.js",
-                            lineNumber: 259,
+                            lineNumber: 290,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 214,
+                        lineNumber: 245,
                         columnNumber: 9
                     }, this),
                     filteredAthletes.length > athletesPerPage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -854,7 +897,7 @@ const AthletesPage = ()=>{
                                 children: "Previous"
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 268,
+                                lineNumber: 299,
                                 columnNumber: 13
                             }, this),
                             Array.from({
@@ -869,7 +912,7 @@ const AthletesPage = ()=>{
                                     children: page
                                 }, page, false, {
                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                    lineNumber: 285,
+                                    lineNumber: 316,
                                     columnNumber: 15
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -884,30 +927,30 @@ const AthletesPage = ()=>{
                                 children: "Next"
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 304,
+                                lineNumber: 335,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 267,
+                        lineNumber: 298,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/daftar-atlet/page.js",
-                lineNumber: 127,
+                lineNumber: 125,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$footer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/daftar-atlet/page.js",
-                lineNumber: 328,
+                lineNumber: 359,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/daftar-atlet/page.js",
-        lineNumber: 116,
+        lineNumber: 114,
         columnNumber: 5
     }, this);
 };
