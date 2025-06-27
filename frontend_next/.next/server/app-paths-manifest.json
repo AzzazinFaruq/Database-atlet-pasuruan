@@ -1,6 +1,10 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/daftar-atlet/[id]/page": "app/daftar-atlet/[id]/page.js",
+<<<<<<< HEAD
+  "/daftar-atlet/form/page": "app/daftar-atlet/form/page.js",
+=======
+>>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
   "/daftar-atlet/page": "app/daftar-atlet/page.js",
   "/dokumentasi/page": "app/dokumentasi/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",

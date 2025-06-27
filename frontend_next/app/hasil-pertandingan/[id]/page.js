@@ -48,6 +48,14 @@ const getResultDetail = (id) => {
 
 const ResultDetail = ({ params }) => {
   const result = getResultDetail(params.id);
+  const galleryImages = [
+    { id: 1, alt: "Pertandingan Hapkido" },
+    { id: 2, alt: "Latihan Hapkido" },
+    { id: 3, alt: "Penyerahan Medali" },
+    { id: 4, alt: "Pose Atlet" },
+    { id: 5, alt: "Aksi Pertandingan" },
+    { id: 6, alt: "Tim Hapkido" },
+  ];
 
   return (
     <div
@@ -98,7 +106,7 @@ const ResultDetail = ({ params }) => {
               Tanggal: {result.tanggal}
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-6 mb-12">
               {result.peserta.map((peserta, index) => (
                 <div
                   key={index}
@@ -152,6 +160,51 @@ const ResultDetail = ({ params }) => {
                   )}
                 </div>
               ))}
+            </div>
+
+            {/* Dokumentasi */}
+            <div>
+              <h2
+                className="font-bold mb-6"
+                style={{
+                  fontSize: "var(--font-size-large)",
+                  color: "var(--color-gray-800)",
+                }}
+              >
+                Dokumentasi Pertandingan
+              </h2>
+              <div
+                className="relative w-full overflow-hidden rounded-2xl p-4 mb-4"
+                style={{
+                  backgroundColor: "var(--color-gray-100)",
+                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                <div className="relative overflow-hidden h-64 rounded-xl">
+                  <div className="absolute flex animate-scroll whitespace-nowrap">
+                    {galleryImages.map((img) => (
+                      <div key={img.id} className="inline-block mx-4">
+                        <div
+                          className="bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl w-96 h-56 flex items-center justify-center font-medium shadow-md"
+                          style={{ fontSize: "var(--font-size-normal)" }}
+                        >
+                          {img.alt}
+                        </div>
+                      </div>
+                    ))}
+                    {galleryImages.map((img) => (
+                      <div key={`copy-${img.id}`} className="inline-block mx-4">
+                        <div
+                          className="bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl w-96 h-56 flex items-center justify-center font-medium shadow-md"
+                          style={{ fontSize: "var(--font-size-normal)" }}
+                        >
+                          {img.alt}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
