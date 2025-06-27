@@ -7313,7 +7313,11 @@ class Router {
                     });
                     return new Promise(()=>{});
                 }
+<<<<<<< HEAD
                 const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":6,"errorRate":0.0001,"numBits":116,"numHashes":14,"bitArray":[1,1,1,0,1,1,1,0,0,1,0,1,1,1,1,1,0,1,0,1,1,0,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,0,1,1,1,0,1,0,0,1,0,0,0,1,0,0,1,0,1,0,0,1,1,1,0,0,1,1,0,0,1,1,1,0,1,1,0,0,1,0,1,0,0,0,0,1,0,0,1,1,0,1,1,1,0,0,0,1,0,0,0,1,0,0,0,1,1,0,0,1,1,1,0,0,1,1,0,1,1,0]}'));
+=======
+                const routerFilterSValue = ("TURBOPACK compile-time value", JSON.parse('{"numItems":5,"errorRate":0.0001,"numBits":96,"numHashes":14,"bitArray":[1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,0,0,0,1,1,1,1,0,1,0,1,1,0,1,1,0,0,1,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,1,0,1,0,1,1,1,0,0,1,1,1,1,0,0,1,0,1,0,0,0,1,1,1,1,1,1,1,0,1,1,0,1,0,1,1,0,0,0,1,0,0,1,0,1,0,1,0]}'));
+>>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
                 if (!staticFilterData && routerFilterSValue) {
                     staticFilterData = routerFilterSValue ? routerFilterSValue : undefined;
                 }
@@ -10257,7 +10261,11 @@ function parseStack(stack) {
             const res = regexNextStatic.exec(url.pathname);
             if (res) {
                 var _process_env___NEXT_DIST_DIR_replace, _process_env___NEXT_DIST_DIR;
+<<<<<<< HEAD
                 const distDir = (_process_env___NEXT_DIST_DIR = ("TURBOPACK compile-time value", "C:\\Users\\ftrah\\.vscode\\Database-atlet-pasuruan\\frontend_next\\.next")) == null ? void 0 : (_process_env___NEXT_DIST_DIR_replace = _process_env___NEXT_DIST_DIR.replace(/\\/g, '/')) == null ? void 0 : _process_env___NEXT_DIST_DIR_replace.replace(/\/$/, '');
+=======
+                const distDir = (_process_env___NEXT_DIST_DIR = ("TURBOPACK compile-time value", "/Users/faruqazizan/Documents/GitHub/Data-Atlet-Pasuruan/frontend_next/.next")) == null ? void 0 : (_process_env___NEXT_DIST_DIR_replace = _process_env___NEXT_DIST_DIR.replace(/\\/g, '/')) == null ? void 0 : _process_env___NEXT_DIST_DIR_replace.replace(/\/$/, '');
+>>>>>>> 023edc6dc54acc81d3e22865fc16753e52817294
                 if (distDir) {
                     frame.file = 'file://' + distDir.concat(res.pop()) + url.search;
                 }
