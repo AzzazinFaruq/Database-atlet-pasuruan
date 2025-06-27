@@ -96,9 +96,6 @@
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
     *, :before, :after, ::backdrop {
-      --tw-translate-x: 0;
-      --tw-translate-y: 0;
-      --tw-translate-z: 0;
       --tw-rotate-x: initial;
       --tw-rotate-y: initial;
       --tw-rotate-z: initial;
@@ -379,10 +376,6 @@
     position: relative;
   }
 
-  .inset-0 {
-    inset: calc(var(--spacing) * 0);
-  }
-
   .inset-y-0 {
     inset-block: calc(var(--spacing) * 0);
   }
@@ -485,10 +478,6 @@
     margin-bottom: calc(var(--spacing) * 16);
   }
 
-  .ml-1 {
-    margin-left: calc(var(--spacing) * 1);
-  }
-
   .flex {
     display: flex;
   }
@@ -511,10 +500,6 @@
 
   .h-4 {
     height: calc(var(--spacing) * 4);
-  }
-
-  .h-5 {
-    height: calc(var(--spacing) * 5);
   }
 
   .h-6 {
@@ -555,10 +540,6 @@
 
   .w-4 {
     width: calc(var(--spacing) * 4);
-  }
-
-  .w-5 {
-    width: calc(var(--spacing) * 5);
   }
 
   .w-6 {
@@ -603,11 +584,6 @@
 
   .flex-grow {
     flex-grow: 1;
-  }
-
-  .translate-y-4 {
-    --tw-translate-y: calc(var(--spacing) * 4);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
   }
 
   .transform {
@@ -738,10 +714,6 @@
     .border-white\/20 {
       border-color: color-mix(in oklab, var(--color-white) 20%, transparent);
     }
-  }
-
-  .bg-black {
-    background-color: var(--color-black);
   }
 
   .bg-gray-100 {
@@ -894,10 +866,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .opacity-0 {
-    opacity: 0;
-  }
-
   .opacity-60 {
     opacity: .6;
   }
@@ -921,12 +889,6 @@
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 
-  .transition-all {
-    transition-property: all;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
-    transition-duration: var(--tw-duration, var(--default-transition-duration));
-  }
-
   .transition-colors {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -948,13 +910,6 @@
   .duration-300 {
     --tw-duration: .3s;
     transition-duration: .3s;
-  }
-
-  @media (hover: hover) {
-    .hover\:translate-y-0:hover {
-      --tw-translate-y: calc(var(--spacing) * 0);
-      translate: var(--tw-translate-x) var(--tw-translate-y);
-    }
   }
 
   @media (hover: hover) {
@@ -1099,9 +1054,6 @@
 :root {
   --color-primary: #009a4c;
   --color-primary-dark: #196344;
-  --color-secondary: #ff6b00;
-  --color-secondary-light: #ff8c33;
-  --color-secondary-dark: #cc5600;
   --color-white: #fff;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
@@ -1126,24 +1078,6 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: Arial, sans-serif;
-}
-
-@property --tw-translate-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property --tw-translate-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
-
-@property --tw-translate-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
 }
 
 @property --tw-rotate-x {
