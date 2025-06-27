@@ -1,5 +1,4 @@
 package controllers
-
 import (
 	"backend_golang/models"
 	"backend_golang/setup"
@@ -9,13 +8,10 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-
 	"github.com/gin-gonic/gin"
 )
-
 func AddDokumentasi(c *gin.Context) {
 	var dokumentasi models.Dokumentasi
-
 	file, err := c.FormFile("dokumentasi")
 	if err == nil {
 		ext := strings.ToLower(filepath.Ext(file.Filename))
@@ -40,7 +36,6 @@ func AddDokumentasi(c *gin.Context) {
 		}
 		dokumentasi.Dokumentasi = uploadPath
 	}
-
 	atletId := c.PostForm("atlet_id")
 	if atletId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "atlet_id tidak boleh kosong"})
@@ -51,15 +46,13 @@ func AddDokumentasi(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "atlet_id harus berupa angka yang valid"})
 		return
 	}
-	dokumentasi.AtletId = &atletIdInt
-
+	dokumentasi.AtletId = atletIdInt
 	if err := setup.DB.Create(&dokumentasi).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal menambah dokumentasi"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Dokumentasi berhasil ditambahkan", "data": dokumentasi})
 }
-
 func GetAllDokumentasi(c *gin.Context) {
 	var dokumentasi []models.Dokumentasi
 	if err := setup.DB.Find(&dokumentasi).Error; err != nil {
@@ -68,7 +61,6 @@ func GetAllDokumentasi(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": dokumentasi})
 }
-
 func GetDokumentasiById(c *gin.Context) {
 	id := c.Param("id")
 	var dokumentasi models.Dokumentasi
@@ -78,7 +70,6 @@ func GetDokumentasiById(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": dokumentasi})
 }
-
 func UpdateDokumentasi(c *gin.Context) {
 	id := c.Param("id")
 	var dokumentasi models.Dokumentasi
@@ -86,7 +77,6 @@ func UpdateDokumentasi(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Dokumentasi tidak ditemukan"})
 		return
 	}
-
 	file, err := c.FormFile("dokumentasi")
 	if err == nil {
 		ext := strings.ToLower(filepath.Ext(file.Filename))
@@ -111,7 +101,6 @@ func UpdateDokumentasi(c *gin.Context) {
 		}
 		dokumentasi.Dokumentasi = uploadPath
 	}
-
 	atletId := c.PostForm("atlet_id")
 	if atletId != "" {
 		var atletIdInt uint
@@ -119,16 +108,14 @@ func UpdateDokumentasi(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "atlet_id harus berupa angka yang valid"})
 			return
 		}
-		dokumentasi.AtletId = &atletIdInt
+		dokumentasi.AtletId = atletIdInt
 	}
-
 	if err := setup.DB.Save(&dokumentasi).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal update dokumentasi"})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Dokumentasi berhasil diupdate", "data": dokumentasi})
 }
-
 func DeleteDokumentasi(c *gin.Context) {
 	id := c.Param("id")
 	if err := setup.DB.Delete(&models.Dokumentasi{}, id).Error; err != nil {
