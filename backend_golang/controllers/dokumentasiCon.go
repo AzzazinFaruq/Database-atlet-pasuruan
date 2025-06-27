@@ -46,9 +46,12 @@ func AddDokumentasi(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "atlet_id tidak boleh kosong"})
 		return
 	}
-	var atletIdInt int64
-	fmt.Sscanf(atletId, "%d", &atletIdInt)
-	dokumentasi.AtletId = atletIdInt
+	var atletIdInt uint
+	if _, err := fmt.Sscanf(atletId, "%d", &atletIdInt); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "atlet_id harus berupa angka yang valid"})
+		return
+	}
+	dokumentasi.AtletId = &atletIdInt
 
 	if err := setup.DB.Create(&dokumentasi).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal menambah dokumentasi"})
@@ -111,9 +114,12 @@ func UpdateDokumentasi(c *gin.Context) {
 
 	atletId := c.PostForm("atlet_id")
 	if atletId != "" {
-		var atletIdInt int64
-		fmt.Sscanf(atletId, "%d", &atletIdInt)
-		dokumentasi.AtletId = atletIdInt
+		var atletIdInt uint
+		if _, err := fmt.Sscanf(atletId, "%d", &atletIdInt); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "atlet_id harus berupa angka yang valid"})
+			return
+		}
+		dokumentasi.AtletId = &atletIdInt
 	}
 
 	if err := setup.DB.Save(&dokumentasi).Error; err != nil {

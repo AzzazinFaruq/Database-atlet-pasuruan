@@ -5,6 +5,7 @@ import (
 	"backend_golang/setup"
 	"backend_golang/utils"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -13,62 +14,70 @@ import (
 
 func Register(c *gin.Context) {
 	var input struct {
-		Username        string `json:"username" binding:"required"`
+		Username        string `json:"username" binding:"required,min=3,max=50"`
 		Email           string `json:"email" binding:"required,email"`
 		Password        string `json:"password" binding:"required,min=8"`
 		ConfirmPassword string `json:"confirm_password" binding:"required,eqfield=Password"`
 	}
 
-	// Validate the request body
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "status": false})
 		return
 	}
 
-	// Hash the password
+	var existingUser models.User
+	if err := setup.DB.Where("email = ? OR username = ?", input.Email, input.Username).First(&existingUser).Error; err == nil {
+		c.JSON(http.StatusConflict, gin.H{"error": "User with this email or username already exists", "status": false})
+		return
+	}
+
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password", "status": false})
 		return
 	}
 
-	// Create a new user instance
 	user := models.User{
 		Username: input.Username,
 		Email:    input.Email,
 		Password: string(hashedPassword),
+		Role:     1,
 	}
 
-	// Save the user in the database
 	if err := setup.DB.Create(&user).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user", "status": false})
 		return
 	}
-
-	// Return success message
-	c.JSON(http.StatusOK, gin.H{"message": "User created successfully"})
+	c.JSON(http.StatusCreated, gin.H{
+		"message": "User created successfully", 
+		"status":  true,
+		"data": gin.H{
+			"username": user.Username,
+			"email":    user.Email,
+		},
+	})
 }
 
 func Login(c *gin.Context) {
 	var input struct {
-		Email      string `json:"email" binding:"required"`
+		Email      string `json:"email" binding:"required,email"`
 		Password   string `json:"password" binding:"required"`
 		RememberMe bool   `json:"remember_me"`
 	}
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "status": false})
 		return
 	}
 
 	var user models.User
 	if err := setup.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password", "status": false})
 		return
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password)); err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid email or password", "status": false})
 		return
 	}
 
@@ -81,15 +90,22 @@ func Login(c *gin.Context) {
 
 	tokenString, err := utils.GenerateJWT(uint(user.Id))
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Failed to generate token", "authenticated": false})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token", "status": false})
 		return
 	}
 
-	c.SetCookie("Authorization", tokenString, int(tokenDuration.Seconds()), "/", "", false, true)
+	secure := os.Getenv("ENV") == "production"
+	c.SetSameSite(http.SameSiteLaxMode)
+	c.SetCookie("Authorization", tokenString, int(tokenDuration.Seconds()), "/", "", secure, true)
+	
 	c.JSON(http.StatusOK, gin.H{
-		"message":       "Login successful",
-		"Username":      user.Username,
-		"authenticated": true,
+		"message": "Login successful",
+		"status":  true,
+		"data": gin.H{
+			"username": user.Username,
+			"email":    user.Email,
+			"role":     user.Role,
+		},
 	})
 }
 
@@ -114,7 +130,5 @@ func GetCurrentUser(c *gin.Context) {
 
 func Logout(c *gin.Context) {
 	c.SetCookie("Authorization", "", -1, "/", "", false, true)
-
-	// Kirim respon logout sukses
 	c.JSON(http.StatusOK, gin.H{"message": "Logout successful"})
 }
