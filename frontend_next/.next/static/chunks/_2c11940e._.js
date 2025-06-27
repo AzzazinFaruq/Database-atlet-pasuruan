@@ -454,59 +454,7 @@ const NOMOR_PERTANDINGAN = {
         "Hospital Gaya Bebas (Free Style)"
     ]
 };
-const athletes = [
-    {
-        id: 1,
-        name: "Ahmad Fauzi",
-        photo: "/atlet-2.jpg",
-        birthPlace: "Pasuruan",
-        birthDate: "15/05/2005",
-        gender: "Laki-laki",
-        address: "Jl. Merdeka No. 123, Pasuruan",
-        school: "SMAN 1 Pasuruan",
-        parent: "Budi Santoso",
-        sport: "Hapkido - Individual Hyung PUTRA",
-        cabangOlahraga: "Hapkido",
-        nomor: "Individual Hyung PUTRA"
-    },
-    {
-        id: 2,
-        name: "Siti Rahmawati",
-        photo: "/atlet-1.jpg",
-        birthPlace: "Pasuruan",
-        birthDate: "22/08/2006",
-        gender: "Perempuan",
-        address: "Jl. Diponegoro No. 45, Pasuruan",
-        school: "SMAN 2 Pasuruan",
-        parent: "Surya Wijaya",
-        sport: "Hapkido - Individual Hyung PUTRI",
-        cabangOlahraga: "Hapkido",
-        nomor: "Individual Hyung Putri"
-    },
-    ...Array.from({
-        length: 18
-    }, (_, i)=>{
-        const cabang = CABANG_OLAHRAGA[i % CABANG_OLAHRAGA.length];
-        const nomorOptions = NOMOR_PERTANDINGAN[cabang] || [
-            "Umum"
-        ];
-        const nomor = nomorOptions[i % nomorOptions.length];
-        return {
-            id: i + 3,
-            name: `Atlet ${i + 3}`,
-            photo: `/athlete${i % 5 + 1}.jpg`,
-            birthPlace: "Pasuruan",
-            birthDate: `01/01/200${i % 10}`,
-            gender: i % 2 === 0 ? "Laki-laki" : "Perempuan",
-            address: `Jl. Contoh No. ${i + 1}, Pasuruan`,
-            school: `SMA ${i % 3 + 1} Pasuruan`,
-            parent: `Orang Tua ${i + 1}`,
-            sport: `${cabang} - ${nomor}`,
-            cabangOlahraga: cabang,
-            nomor: nomor
-        };
-    })
-];
+const athletes = [];
 const AthletesPage = ()=>{
     _s();
     const [currentPage, setCurrentPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
@@ -560,7 +508,7 @@ const AthletesPage = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$navbar$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/daftar-atlet/page.js",
-                lineNumber: 125,
+                lineNumber: 75,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -576,7 +524,7 @@ const AthletesPage = ()=>{
                         children: "DAFTAR ATLET"
                     }, void 0, false, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 128,
+                        lineNumber: 78,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -600,7 +548,7 @@ const AthletesPage = ()=>{
                                                 children: "Semua Cabang Olahraga"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 152,
+                                                lineNumber: 102,
                                                 columnNumber: 15
                                             }, this),
                                             CABANG_OLAHRAGA.map((cabor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -608,13 +556,13 @@ const AthletesPage = ()=>{
                                                     children: cabor
                                                 }, index, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                                    lineNumber: 154,
+                                                    lineNumber: 104,
                                                     columnNumber: 17
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 142,
+                                        lineNumber: 92,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -625,7 +573,7 @@ const AthletesPage = ()=>{
                                         children: "Cabang Olahraga"
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 159,
+                                        lineNumber: 109,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -640,23 +588,23 @@ const AthletesPage = ()=>{
                                                 clipRule: "evenodd"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 167,
+                                                lineNumber: 117,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/daftar-atlet/page.js",
-                                            lineNumber: 166,
+                                            lineNumber: 116,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 165,
+                                        lineNumber: 115,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 141,
+                                lineNumber: 91,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -678,7 +626,7 @@ const AthletesPage = ()=>{
                                                 children: "Semua Nomor Pertandingan"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 188,
+                                                lineNumber: 138,
                                                 columnNumber: 15
                                             }, this),
                                             uniqueNomors.map((nomor, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -686,13 +634,13 @@ const AthletesPage = ()=>{
                                                     children: nomor
                                                 }, index, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                                    lineNumber: 190,
+                                                    lineNumber: 140,
                                                     columnNumber: 17
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 177,
+                                        lineNumber: 127,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -703,7 +651,7 @@ const AthletesPage = ()=>{
                                         children: "Nomor Pertandingan"
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 195,
+                                        lineNumber: 145,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -718,29 +666,29 @@ const AthletesPage = ()=>{
                                                 clipRule: "evenodd"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 203,
+                                                lineNumber: 153,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/daftar-atlet/page.js",
-                                            lineNumber: 202,
+                                            lineNumber: 152,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 201,
+                                        lineNumber: 151,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 176,
+                                lineNumber: 126,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 140,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -766,12 +714,12 @@ const AthletesPage = ()=>{
                                                     className: "w-full h-full object-cover"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                                    lineNumber: 231,
+                                                    lineNumber: 181,
                                                     columnNumber: 23
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 225,
+                                                lineNumber: 175,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,7 +733,7 @@ const AthletesPage = ()=>{
                                                         children: athlete.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                                        lineNumber: 238,
+                                                        lineNumber: 188,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -796,29 +744,29 @@ const AthletesPage = ()=>{
                                                         children: athlete.sport
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                                        lineNumber: 247,
+                                                        lineNumber: 197,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                                lineNumber: 237,
+                                                lineNumber: 187,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/daftar-atlet/page.js",
-                                        lineNumber: 224,
+                                        lineNumber: 174,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                    lineNumber: 218,
+                                    lineNumber: 168,
                                     columnNumber: 17
                                 }, this)
                             }, athlete.id, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 217,
+                                lineNumber: 167,
                                 columnNumber: 15
                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "col-span-full text-center py-12",
@@ -826,17 +774,17 @@ const AthletesPage = ()=>{
                                 children: "Tidak ada atlet yang ditemukan"
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 260,
+                                lineNumber: 210,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/daftar-atlet/page.js",
-                            lineNumber: 259,
+                            lineNumber: 209,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 214,
+                        lineNumber: 164,
                         columnNumber: 9
                     }, this),
                     filteredAthletes.length > athletesPerPage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -854,7 +802,7 @@ const AthletesPage = ()=>{
                                 children: "Previous"
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 268,
+                                lineNumber: 218,
                                 columnNumber: 13
                             }, this),
                             Array.from({
@@ -869,7 +817,7 @@ const AthletesPage = ()=>{
                                     children: page
                                 }, page, false, {
                                     fileName: "[project]/app/daftar-atlet/page.js",
-                                    lineNumber: 285,
+                                    lineNumber: 235,
                                     columnNumber: 15
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -884,30 +832,30 @@ const AthletesPage = ()=>{
                                 children: "Next"
                             }, void 0, false, {
                                 fileName: "[project]/app/daftar-atlet/page.js",
-                                lineNumber: 304,
+                                lineNumber: 254,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/daftar-atlet/page.js",
-                        lineNumber: 267,
+                        lineNumber: 217,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/daftar-atlet/page.js",
-                lineNumber: 127,
+                lineNumber: 77,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$footer$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/daftar-atlet/page.js",
-                lineNumber: 328,
+                lineNumber: 278,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/daftar-atlet/page.js",
-        lineNumber: 116,
+        lineNumber: 66,
         columnNumber: 5
     }, this);
 };
