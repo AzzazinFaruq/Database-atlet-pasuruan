@@ -4,57 +4,116 @@ import (
 	"backend_golang/models"
 	"backend_golang/setup"
 	"net/http"
+	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 func GetAllCabor(c *gin.Context) {
 	var cabor []models.Cabor
+	var total int64
 
-	if err := setup.DB.Find(&cabor).Error; err != nil {
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+	
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 || limit > 100 {
+		limit = 10
+	}
+	
+	offset := (page - 1) * limit
+
+	if err := setup.DB.Model(&models.Cabor{}).Count(&total).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "status": false})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": cabor})
+	if err := setup.DB.Offset(offset).Limit(limit).Find(&cabor).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "status": false})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": cabor,
+		"pagination": gin.H{
+			"page":        page,
+			"limit":       limit,
+			"total":       total,
+			"total_pages": (total + int64(limit) - 1) / int64(limit),
+		},
+		"status": true,
+	})
 }
 
 func GetCaborById(c *gin.Context) {
 	id := c.Param("id")
-	var cabor models.Cabor
-	if err := setup.DB.First(&cabor, id).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Cabor tidak ditemukan"})
+	
+	if _, err := strconv.ParseUint(id, 10, 32); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":  "ID harus berupa angka",
+			"status": false,
+		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": cabor})
+	
+	var cabor models.Cabor
+	if err := setup.DB.First(&cabor, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":  "Cabor tidak ditemukan",
+			"status": false,
+		})
+		return
+	}
+	
+	c.JSON(http.StatusOK, gin.H{
+		"data":   cabor,
+		"status": true,
+	})
 }
 
 func AddCabor(c *gin.Context) {
 	var input struct {
-		NamaCabor string `json:"nama_cabor" binding:"required"`
-		HasilId   int64  `json:"hasil_id"`
+		NamaCabor string `json:"nama_cabor" binding:"required,min=2,max=100"`
+		HasilId   *uint  `json:"hasil_id"`
 	}
 
-	// Validate the request body
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(), "status": false})
 		return
 	}
 
-	// Create a new user instance
+	input.NamaCabor = strings.TrimSpace(input.NamaCabor)
+
+	var existingCabor models.Cabor
+	if err := setup.DB.Where("nama_cabor = ?", input.NamaCabor).First(&existingCabor).Error; err == nil {
+		c.JSON(http.StatusConflict, gin.H{
+			"error":  "Cabor dengan nama tersebut sudah ada",
+			"status": false,
+		})
+		return
+	}
+
 	cabor := models.Cabor{
 		NamaCabor: input.NamaCabor,
 		HasilId:   input.HasilId,
 	}
 
-	// Save the user in the database
 	if err := setup.DB.Create(&cabor).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create Cabor"})
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error":  "Failed to create Cabor",
+			"status": false,
+		})
 		return
 	}
 
-	// Return success message
-	c.JSON(http.StatusOK, gin.H{"message": "User created successfully"})
+	c.JSON(http.StatusCreated, gin.H{
+		"message": "Cabor berhasil ditambahkan",
+		"status":  true,
+		"data":    cabor,
+	})
 }
 
 func UpdateCabor(c *gin.Context) {
@@ -67,7 +126,7 @@ func UpdateCabor(c *gin.Context) {
 
 	var input struct {
 		NamaCabor string `json:"nama_cabor"`
-		HasilId   int64  `json:"hasil_id"`
+		HasilId   *uint  `json:"hasil_id"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -77,7 +136,7 @@ func UpdateCabor(c *gin.Context) {
 	if input.NamaCabor != "" {
 		cabor.NamaCabor = input.NamaCabor
 	}
-	if input.HasilId != 0 {
+	if input.HasilId != nil {
 		cabor.HasilId = input.HasilId
 	}
 

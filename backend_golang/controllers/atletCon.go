@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -14,32 +15,95 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func isValidNIK(nik string) bool {
+	nikRegex := regexp.MustCompile(`^\d{16}$`)
+	return nikRegex.MatchString(nik)
+}
+
+func isValidImageFile(filename string) bool {
+	ext := strings.ToLower(filepath.Ext(filename))
+	allowedExts := []string{".jpg", ".jpeg", ".png"}
+	for _, allowedExt := range allowedExts {
+		if ext == allowedExt {
+			return true
+		}
+	}
+	return false
+}
+
+func sanitizeFilename(filename string) string {
+	reg := regexp.MustCompile(`[^a-zA-Z0-9\.\-_]`)
+	return reg.ReplaceAllString(filename, "_")
+}
+
 func GetAllAtlet(c *gin.Context) {
 	var atlet []models.Atlet
+	var total int64
 
-	if err := setup.DB.Find(&atlet).Error; err != nil {
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	limit, _ := strconv.Atoi(c.DefaultQuery("limit", "10"))
+	
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 || limit > 100 {
+		limit = 10
+	}
+	
+	offset := (page - 1) * limit
+
+	if err := setup.DB.Model(&models.Atlet{}).Count(&total).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "status": false})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": atlet})
+	if err := setup.DB.Offset(offset).Limit(limit).Find(&atlet).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error(), "status": false})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"data": atlet,
+		"pagination": gin.H{
+			"page":        page,
+			"limit":       limit,
+			"total":       total,
+			"total_pages": (total + int64(limit) - 1) / int64(limit),
+		},
+		"status": true,
+	})
 }
 func GetAtletById(c *gin.Context) {
 	id := c.Param("id")
-	var atlet models.Atlet
-	if err := setup.DB.First(&atlet, id).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Atlet tidak ditemukan"})
+	
+	if _, err := strconv.ParseUint(id, 10, 32); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":  "ID harus berupa angka",
+			"status": false,
+		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": atlet})
+	
+	var atlet models.Atlet
+	if err := setup.DB.First(&atlet, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":  "Atlet tidak ditemukan",
+			"status": false,
+		})
+		return
+	}
+	
+	c.JSON(http.StatusOK, gin.H{
+		"data":   atlet,
+		"status": true,
+	})
 }
 func AddAtlet(c *gin.Context) {
 	var atlet models.Atlet
 
 	Foto3x4, err := c.FormFile("foto_3x4")
 	if err == nil {
-		ext := strings.ToLower(filepath.Ext(Foto3x4.Filename))
-		if ext != ".jpg" && ext != ".jpeg" && ext != ".png" {
+		if !isValidImageFile(Foto3x4.Filename) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  false,
 				"message": "Format file tidak didukung. Gunakan JPG, JPEG, atau PNG",
@@ -56,7 +120,7 @@ func AddAtlet(c *gin.Context) {
 		}
 
 		timestamp := time.Now().Unix()
-		filename := fmt.Sprintf("%d_%s", timestamp, Foto3x4.Filename)
+		filename := fmt.Sprintf("%d_%s", timestamp, sanitizeFilename(Foto3x4.Filename))
 		uploadPath := "public/uploads/foto_3x4/" + filename
 
 		if err := os.MkdirAll("public/uploads/foto_3x4", 0755); err != nil {
@@ -79,8 +143,7 @@ func AddAtlet(c *gin.Context) {
 
 	FotoBebas, err := c.FormFile("foto_bebas")
 	if err == nil {
-		ext := strings.ToLower(filepath.Ext(FotoBebas.Filename))
-		if ext != ".jpg" && ext != ".jpeg" && ext != ".png" {
+		if !isValidImageFile(FotoBebas.Filename) {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"status":  false,
 				"message": "Format file tidak didukung. Gunakan JPG, JPEG, atau PNG",
@@ -97,7 +160,7 @@ func AddAtlet(c *gin.Context) {
 		}
 
 		timestamp := time.Now().Unix()
-		filename := fmt.Sprintf("%d_%s", timestamp, FotoBebas.Filename)
+		filename := fmt.Sprintf("%d_%s", timestamp, sanitizeFilename(FotoBebas.Filename))
 		uploadPath := "public/uploads/foto_bebas/" + filename
 
 		if err := os.MkdirAll("public/uploads/foto_bebas", 0755); err != nil {
@@ -118,7 +181,7 @@ func AddAtlet(c *gin.Context) {
 		atlet.FotoBebas = uploadPath
 	}
 
-	NIK := c.PostForm("nik")
+	NIK := strings.TrimSpace(c.PostForm("nik"))
 	if NIK == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  false,
@@ -126,9 +189,25 @@ func AddAtlet(c *gin.Context) {
 		})
 		return
 	}
+	if !isValidNIK(NIK) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  false,
+			"message": "NIK harus 16 digit angka",
+		})
+		return
+	}
+	
+	var existingAtlet models.Atlet
+	if err := setup.DB.Where("nik = ?", NIK).First(&existingAtlet).Error; err == nil {
+		c.JSON(http.StatusConflict, gin.H{
+			"status":  false,
+			"message": "NIK sudah terdaftar",
+		})
+		return
+	}
 	atlet.NIK = NIK
 
-	Nama := c.PostForm("nama")
+	Nama := strings.TrimSpace(c.PostForm("nama"))
 	if Nama == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  false,
@@ -136,9 +215,16 @@ func AddAtlet(c *gin.Context) {
 		})
 		return
 	}
+	if len(Nama) < 2 || len(Nama) > 100 {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status":  false,
+			"message": "Nama harus antara 2-100 karakter",
+		})
+		return
+	}
 	atlet.Nama = Nama
 
-	TempatLahir := c.PostForm("tempat_lahir")
+	TempatLahir := strings.TrimSpace(c.PostForm("tempat_lahir"))
 	if TempatLahir == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"status":  false,
@@ -264,7 +350,6 @@ func UpdateAtlet(c *gin.Context) {
 		return
 	}
 
-	// Update data dari form
 	NIK := c.PostForm("nik")
 	if NIK != "" {
 		atlet.NIK = NIK
@@ -317,11 +402,9 @@ func UpdateAtlet(c *gin.Context) {
 		atlet.NamaSekolah = NamaSekolah
 	}
 
-	// Update foto jika ada file baru
 	Foto3x4, err := c.FormFile("foto_3x4")
 	if err == nil {
-		ext := strings.ToLower(filepath.Ext(Foto3x4.Filename))
-		if ext != ".jpg" && ext != ".jpeg" && ext != ".png" {
+		if !isValidImageFile(Foto3x4.Filename) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Format file foto_3x4 tidak didukung. Gunakan JPG, JPEG, atau PNG"})
 			return
 		}
@@ -330,7 +413,7 @@ func UpdateAtlet(c *gin.Context) {
 			return
 		}
 		timestamp := time.Now().Unix()
-		filename := fmt.Sprintf("%d_%s", timestamp, Foto3x4.Filename)
+		filename := fmt.Sprintf("%d_%s", timestamp, sanitizeFilename(Foto3x4.Filename))
 		uploadPath := "public/uploads/foto_3x4/" + filename
 		if err := os.MkdirAll("public/uploads/foto_3x4", 0755); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membuat direktori upload"})
@@ -344,8 +427,7 @@ func UpdateAtlet(c *gin.Context) {
 	}
 	FotoBebas, err := c.FormFile("foto_bebas")
 	if err == nil {
-		ext := strings.ToLower(filepath.Ext(FotoBebas.Filename))
-		if ext != ".jpg" && ext != ".jpeg" && ext != ".png" {
+		if !isValidImageFile(FotoBebas.Filename) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Format file foto_bebas tidak didukung. Gunakan JPG, JPEG, atau PNG"})
 			return
 		}
@@ -354,7 +436,7 @@ func UpdateAtlet(c *gin.Context) {
 			return
 		}
 		timestamp := time.Now().Unix()
-		filename := fmt.Sprintf("%d_%s", timestamp, FotoBebas.Filename)
+		filename := fmt.Sprintf("%d_%s", timestamp, sanitizeFilename(FotoBebas.Filename))
 		uploadPath := "public/uploads/foto_bebas/" + filename
 		if err := os.MkdirAll("public/uploads/foto_bebas", 0755); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membuat direktori upload"})

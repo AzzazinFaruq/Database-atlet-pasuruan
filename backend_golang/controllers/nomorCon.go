@@ -11,7 +11,7 @@ import (
 func AddNomor(c *gin.Context) {
 	var input struct {
 		NamaNomor string `json:"nama_nomor" binding:"required"`
-		CaborID   int64  `json:"cabor_id" binding:"required"`
+		CaborID   *uint  `json:"cabor_id"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -55,7 +55,7 @@ func UpdateNomor(c *gin.Context) {
 	}
 	var input struct {
 		NamaNomor string `json:"nama_nomor"`
-		CaborID   int64  `json:"cabor_id"`
+		CaborID   *uint  `json:"cabor_id"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -64,7 +64,7 @@ func UpdateNomor(c *gin.Context) {
 	if input.NamaNomor != "" {
 		nomor.NamaNomor = input.NamaNomor
 	}
-	if input.CaborID != 0 {
+	if input.CaborID != nil {
 		nomor.CaborID = input.CaborID
 	}
 	if err := setup.DB.Save(&nomor).Error; err != nil {
