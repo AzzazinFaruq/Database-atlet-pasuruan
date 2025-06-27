@@ -15,8 +15,9 @@ type Atlet struct {
 	NamaOrtu     string    `json:"nama_ortu" gorm:"type:varchar(255);not null"`
 	Sekolah      string    `json:"sekolah" gorm:"type:enum('SD','SMP','SMA','SMK','Universitas','Lainnya');not null"`
 	NamaSekolah  string    `json:"nama_sekolah" gorm:"type:varchar(255);not null"`
-	// Many-to-Many relationship with Cabor through AtletCabor
-	Cabors       []Cabor   `gorm:"many2many:atlet_cabors;" json:"cabors,omitempty"`
+	CaborId   uint      `json:"cabor_id" gorm:"not null;index"`
+	Cabor     Cabor     `gorm:"foreignKey:CaborId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"cabor,omitempty"`
+	
 	// One-to-Many relationships
 	Dokumentasis []Dokumentasi      `gorm:"foreignKey:AtletId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"dokumentasis,omitempty"`
 	Hasil        []HasilPertandingan `gorm:"foreignKey:AtletId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"hasil,omitempty"`

@@ -30,13 +30,10 @@ func main() {
 		authGroup.POST("/login", controllers.Login)
 	}
 	protected := router.Group("/api")
-
 	// protected.Use(middleware.AuthMiddleware())
-
-	// auth middleware
-	protected.POST("/logout", controllers.Logout)
-	protected.GET("/user", controllers.GetCurrentUser)
-
+	{
+		protected.POST("/logout", controllers.Logout)
+		protected.GET("/user", controllers.GetCurrentUser)
 		protected.POST("/atlet/add", controllers.AddAtlet)
 		protected.GET("/atlet", controllers.GetAllAtlet)
 		protected.GET("/atlet/:id", controllers.GetAtletById)
@@ -53,6 +50,7 @@ func main() {
 		protected.GET("/nomor/:id", controllers.GetNomorById)
 		protected.PUT("/nomor/update/:id", controllers.UpdateNomor)
 		protected.DELETE("/nomor/delete/:id", controllers.DeleteNomor)
+		protected.GET("/nomor/cabor/:cabor_id", controllers.GetNomorByCaborId)
 		// Hasil Pertandingan routes
 		protected.POST("/hasil/add", controllers.CreateHasil)
 		protected.GET("/hasil", controllers.GetAllHasil)

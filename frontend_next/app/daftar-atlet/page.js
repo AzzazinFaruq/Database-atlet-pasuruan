@@ -1,53 +1,75 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import axios from "axios";
 
-const CABANG_OLAHRAGA = ["HAPKIDO"];
-
-const NOMOR_PERTANDINGAN = {
-  HAPKIDO: [
-    "Individual Hyung PUTRI",
-    "Individual Hyung PUTRA",
-    "Bezpasangan Hoehnsul PUTRI",
-    "Bezpasangan Hoehnsul PUTRA",
-    "Hospital Gaya Bebas (Free Style)",
-  ],
-};
-
-axios.get("http://localhost:8080/api/atlet")
-.then((res) => {
-  athletes=res.data.data
-})
-.catch((err) => {
-  console.error('Gagal ambil data:', err);
-});
-
-var athletes = [];
-
 const AthletesPage = () => {
+  const [nomorList, setNomorList] = useState([]);
+  const [cabangOlahragaList, setCabangOlahragaList] = useState([]);
+  const [athletes, setAthletes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCabor, setFilterCabor] = useState("");
   const [filterNomor, setFilterNomor] = useState("");
 
   const athletesPerPage = 9;
 
-  const uniqueNomors = useMemo(() => {
-    if (!filterCabor) return [];
-    return NOMOR_PERTANDINGAN[filterCabor] || [];
-  }, [filterCabor]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/atlet")
+      .then((res) => {
+        setAthletes(res.data.data);
+      })
+      .catch((err) => {
+        console.error("Gagal ambil data:", err);
+      });
+
+    axios
+      .get("http://localhost:8080/api/cabor")
+      .then((res) => {
+        setCabangOlahragaList(res.data.data);
+      })
+      .catch((err) => {
+        console.error("Gagal ambil data:", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (filterCabor) {
+      // Cari id cabor dari nama_cabor
+      const selectedCabor = cabangOlahragaList.find(
+        (cabor) => cabor.nama_cabor === filterCabor
+      );
+      if (selectedCabor) {
+        axios
+          .get(`http://localhost:8080/api/nomor/cabor/${selectedCabor.id}`)
+          .then((res) => {
+            setNomorList(res.data.data);
+          })
+          .catch((err) => {
+            setNomorList([]);
+            console.error("Gagal ambil data nomor:", err);
+          });
+      } else {
+        setNomorList([]);
+      }
+    } else {
+      setNomorList([]);
+    }
+  }, [filterCabor, cabangOlahragaList]);
+
+  const uniqueNomors = useMemo(() => nomorList, [nomorList]);
 
   const filteredAthletes = useMemo(() => {
     return athletes.filter((athlete) => {
       const matchesCabor =
-        filterCabor === "" || athlete.cabangOlahraga === filterCabor;
+      filterCabor === "" || athlete.cabor.nama_cabor === filterCabor;    
       const matchesNomor = filterNomor === "" || athlete.nomor === filterNomor;
       return matchesCabor && matchesNomor;
     });
-  }, [filterCabor, filterNomor]);
+  }, [athletes, filterCabor, filterNomor]);
 
   // Pagination
   const indexOfLastAthlete = currentPage * athletesPerPage;
@@ -60,13 +82,13 @@ const AthletesPage = () => {
 
   const handleFilterCaborChange = (e) => {
     setFilterCabor(e.target.value);
-    setFilterNomor("");
+    setFilterNomor(""); 
     setCurrentPage(1);
   };
 
   const handleFilterNomorChange = (e) => {
     setFilterNomor(e.target.value);
-    setCurrentPage(1);
+    setCurrentPage(1); 
   };
 
   return (
@@ -94,110 +116,77 @@ const AthletesPage = () => {
         </h1>
 
         {/* Filter */}
-        <div className="mb-8 flex flex-col md:flex-row gap-4 items-start">
-          <div className="flex-1 flex flex-col md:flex-row gap-4">
-            <div className="flex-1 relative">
-              <select
-                value={filterCabor}
-                onChange={handleFilterCaborChange}
-                className="w-full p-3 rounded-lg border appearance-none"
-                style={{
-                  borderColor: "var(--color-gray-300)",
-                  backgroundColor: "var(--color-white)",
-                  paddingTop: "1.5rem",
-                }}
-              >
-                <option value="">Semua Cabang Olahraga</option>
-                {CABANG_OLAHRAGA.map((cabor, index) => (
-                  <option key={index} value={cabor}>
-                    {cabor}
-                  </option>
-                ))}
-              </select>
-              <span
-                className="absolute left-3 top-3 text-xs pointer-events-none"
-                style={{ color: "var(--color-gray-500)" }}
-              >
-                Cabang Olahraga
-              </span>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            <div className="flex-1 relative">
-              <select
-                value={filterNomor}
-                onChange={handleFilterNomorChange}
-                className="w-full p-3 rounded-lg border appearance-none"
-                style={{
-                  borderColor: "var(--color-gray-300)",
-                  backgroundColor: "var(--color-white)",
-                  paddingTop: "1.5rem",
-                }}
-                disabled={!filterCabor}
-              >
-                <option value="">Semua Nomor Pertandingan</option>
-                {uniqueNomors.map((nomor, index) => (
-                  <option key={index} value={nomor}>
-                    {nomor}
-                  </option>
-                ))}
-              </select>
-              <span
-                className="absolute left-3 top-3 text-xs pointer-events-none"
-                style={{ color: "var(--color-gray-500)" }}
-              >
-                Nomor Pertandingan
-              </span>
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
+        <div className="mb-8 flex flex-col md:flex-row gap-4">
+          <div className="flex-1 relative">
+            <select
+              value={filterCabor}
+              onChange={handleFilterCaborChange}
+              className="w-full p-3 rounded-lg border appearance-none"
+              style={{
+                borderColor: "var(--color-gray-300)",
+                backgroundColor: "var(--color-white)",
+                paddingTop: "1.5rem",
+              }}
+            >
+              <option value="">Semua Cabang Olahraga</option>
+              {cabangOlahragaList.map((cabor) => (
+                <option key={cabor.Id} value={cabor.nama_cabor}>
+                  {cabor.nama_cabor}
+                </option>
+              ))}
+            </select>
+            <span
+              className="absolute left-3 top-3 text-xs pointer-events-none"
+              style={{ color: "var(--color-gray-500)" }}
+            >
+              Cabang Olahraga
+            </span>
+            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </div>
           </div>
 
-          <Link
-            href="/daftar-atlet/form"
-            className="px-4 py-3 rounded-lg flex items-center justify-center gap-2"
-            style={{
-              backgroundColor: "var(--color-primary)",
-              color: "white",
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+          <div className="flex-1 relative">
+            <select
+              value={filterNomor}
+              onChange={handleFilterNomorChange}
+              className="w-full p-3 rounded-lg border appearance-none"
+              style={{
+                borderColor: "var(--color-gray-300)",
+                backgroundColor: "var(--color-white)",
+                paddingTop: "1.5rem",
+              }}
+              disabled={!filterCabor}
             >
-              <path
-                fillRule="evenodd"
-                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Tambah Atlet
-          </Link>
+              <option value="">Semua Nomor Pertandingan</option>
+              {uniqueNomors.map((nomor) => (
+                <option key={nomor.id} value={nomor.nama_nomor}>
+                  {nomor.nama_nomor}
+                </option>
+              ))}
+            </select>
+            <span
+              className="absolute left-3 top-3 text-xs pointer-events-none"
+              style={{ color: "var(--color-gray-500)" }}
+            >
+              Nomor Pertandingan
+            </span>
+            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+              <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Grid */}
@@ -220,7 +209,7 @@ const AthletesPage = () => {
                     >
                       <img
                         src={athlete.foto_3x4}
-                        alt={athlete.foto_bebas}
+                        alt={athlete.foto_3x4}
                         className="w-full h-full object-cover"
                       />
                     </div>

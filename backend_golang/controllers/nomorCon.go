@@ -25,10 +25,12 @@ func AddNomor(c *gin.Context) {
 }
 func GetAllNomor(c *gin.Context) {
 	var nomor []models.Nomor
-	if err := setup.DB.Find(&nomor).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+
+		if err := setup.DB.Preload("Cabor").Find(&nomor).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+	
 	c.JSON(http.StatusOK, gin.H{"data": nomor})
 }
 func GetNomorById(c *gin.Context) {
@@ -74,4 +76,13 @@ func DeleteNomor(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Nomor berhasil dihapus"})
+}
+func GetNomorByCaborId(c *gin.Context) {
+	caborId := c.Param("cabor_id")
+	var nomors []models.Nomor
+	if err := setup.DB.Where("cabor_id = ?", caborId).Find(&nomors).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": nomors})
 }

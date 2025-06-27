@@ -7,7 +7,7 @@ type Cabor struct {
 	NamaCabor string    `json:"nama_cabor" gorm:"type:varchar(255);uniqueIndex;not null"`
 	// One-to-Many relationships
 	Nomors    []Nomor    `gorm:"foreignKey:CaborID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"nomors,omitempty"`
-	Atlets    []Atlet    `gorm:"many2many:atlet_cabors;" json:"atlets,omitempty"`
+	Atlets    []Atlet   `gorm:"foreignKey:CaborId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"atlets,omitempty"`
 	CreatedAt time.Time  `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt time.Time  `gorm:"autoUpdateTime" json:"updated_at"`
 }

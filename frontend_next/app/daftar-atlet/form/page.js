@@ -1,21 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../../components/navbar";
 import Footer from "../../components/footer";
-
-const CABANG_OLAHRAGA = ["HAPKIDO"];
-
-const NOMOR_PERTANDINGAN = {
-  HAPKIDO: [
-    "Individual Hyung PUTRI",
-    "Individual Hyung PUTRA",
-    "Bezpasangan Hoehnsul PUTRI",
-    "Bezpasangan Hoehnsul PUTRA",
-    "Hospital Gaya Bebas (Free Style)",
-  ],
-};
 
 const AddAthletePage = () => {
   const [formData, setFormData] = useState({
@@ -32,6 +20,32 @@ const AddAthletePage = () => {
   });
 
   const [preview, setPreview] = useState("");
+  const [cabangOlahragaList, setCabangOlahragaList] = useState([]);
+  const [nomorList, setNomorList] = useState([]);
+
+  useEffect(() => {
+    // Ambil daftar cabor dari backend
+    fetch("http://localhost:8080/api/cabor")
+      .then((res) => res.json())
+      .then((data) => setCabangOlahragaList(data.data || []));
+  }, []);
+
+  useEffect(() => {
+    if (formData.cabangOlahraga) {
+      const selectedCabor = cabangOlahragaList.find(
+        (cabor) => cabor.nama_cabor === formData.cabangOlahraga
+      );
+      if (selectedCabor) {
+        fetch(`http://localhost:8080/api/nomor/cabor/${selectedCabor.id}`)
+          .then((res) => res.json())
+          .then((data) => setNomorList(data.data || []));
+      } else {
+        setNomorList([]);
+      }
+    } else {
+      setNomorList([]);
+    }
+  }, [formData.cabangOlahraga, cabangOlahragaList]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -256,9 +270,9 @@ const AddAthletePage = () => {
                             required
                           >
                             <option value="">Pilih Cabang Olahraga</option>
-                            {CABANG_OLAHRAGA.map((cabor, index) => (
-                              <option key={index} value={cabor}>
-                                {cabor}
+                            {cabangOlahragaList.map((cabor) => (
+                              <option key={cabor.id} value={cabor.nama_cabor}>
+                                {cabor.nama_cabor}
                               </option>
                             ))}
                           </select>
@@ -291,14 +305,11 @@ const AddAthletePage = () => {
                             required
                           >
                             <option value="">Pilih Nomor Pertandingan</option>
-                            {formData.cabangOlahraga &&
-                              NOMOR_PERTANDINGAN[formData.cabangOlahraga]?.map(
-                                (nomor, index) => (
-                                  <option key={index} value={nomor}>
-                                    {nomor}
-                                  </option>
-                                )
-                              )}
+                            {nomorList.map((nomor) => (
+                              <option key={nomor.id} value={nomor.nama_nomor}>
+                                {nomor.nama_nomor}
+                              </option>
+                            ))}
                           </select>
                           <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                             <svg
