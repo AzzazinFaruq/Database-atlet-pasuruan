@@ -4,6 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import axios from "axios";
 
 const CABANG_OLAHRAGA = [
   "HAPKIDO",
@@ -19,57 +20,15 @@ const NOMOR_PERTANDINGAN = {
   ],
 };
 
-const athletes = [
-  {
-    id: 1,
-    name: "Ahmad Fauzi",
-    photo: "/atlet-2.jpg",
-    birthPlace: "Pasuruan",
-    birthDate: "15/05/2005",
-    gender: "Laki-laki",
-    address: "Jl. Merdeka No. 123, Pasuruan",
-    school: "SMAN 1 Pasuruan",
-    parent: "Budi Santoso",
-    sport: "Hapkido - Individual Hyung PUTRA",
-    cabangOlahraga: "Hapkido",
-    nomor: "Individual Hyung PUTRA",
-  },
-  {
-    id: 2,
-    name: "Siti Rahmawati",
-    photo: "/atlet-1.jpg",
-    birthPlace: "Pasuruan",
-    birthDate: "22/08/2006",
-    gender: "Perempuan",
-    address: "Jl. Diponegoro No. 45, Pasuruan",
-    school: "SMAN 2 Pasuruan",
-    parent: "Surya Wijaya",
-    sport: "Hapkido - Individual Hyung PUTRI",
-    cabangOlahraga: "Hapkido",
-    nomor: "Individual Hyung Putri",
-  },
+axios.get("http://localhost:8080/api/atlet")
+.then((res) => {
+  athletes=res.data.data
+})
+.catch((err) => {
+  console.error('Gagal ambil data:', err);
+});
 
-  ...Array.from({ length: 18 }, (_, i) => {
-    const cabang = CABANG_OLAHRAGA[i % CABANG_OLAHRAGA.length];
-    const nomorOptions = NOMOR_PERTANDINGAN[cabang] || ["Umum"];
-    const nomor = nomorOptions[i % nomorOptions.length];
-
-    return {
-      id: i + 3,
-      name: `Atlet ${i + 3}`,
-      photo: `/athlete${(i % 5) + 1}.jpg`,
-      birthPlace: "Pasuruan",
-      birthDate: `01/01/200${i % 10}`,
-      gender: i % 2 === 0 ? "Laki-laki" : "Perempuan",
-      address: `Jl. Contoh No. ${i + 1}, Pasuruan`,
-      school: `SMA ${(i % 3) + 1} Pasuruan`,
-      parent: `Orang Tua ${i + 1}`,
-      sport: `${cabang} - ${nomor}`,
-      cabangOlahraga: cabang,
-      nomor: nomor,
-    };
-  }),
-];
+var athletes = [];
 
 const AthletesPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -229,8 +188,8 @@ const AthletesPage = () => {
                       }}
                     >
                       <img
-                        src={athlete.photo}
-                        alt={athlete.name}
+                        src={athlete.foto_3x4}
+                        alt={athlete.foto_bebas}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -242,7 +201,7 @@ const AthletesPage = () => {
                           color: "var(--color-gray-800)",
                         }}
                       >
-                        {athlete.name}
+                        {athlete.nama}
                       </h3>
                       <p
                         className="text-sm"

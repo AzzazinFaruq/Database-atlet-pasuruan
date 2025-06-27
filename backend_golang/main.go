@@ -30,10 +30,13 @@ func main() {
 		authGroup.POST("/login", controllers.Login)
 	}
 	protected := router.Group("/api")
-	protected.Use(middleware.AuthMiddleware())
-	{
-		protected.POST("/logout", controllers.Logout)
-		protected.GET("/user", controllers.GetCurrentUser)
+
+	// protected.Use(middleware.AuthMiddleware())
+
+	// auth middleware
+	protected.POST("/logout", controllers.Logout)
+	protected.GET("/user", controllers.GetCurrentUser)
+
 		protected.POST("/atlet/add", controllers.AddAtlet)
 		protected.GET("/atlet", controllers.GetAllAtlet)
 		protected.GET("/atlet/:id", controllers.GetAtletById)

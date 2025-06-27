@@ -1,7 +1,11 @@
 // app/page.js
+"use client";
+
 import React from "react";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import axios from "axios";
+import { useState, useEffect } from 'react';
 
 const Dashboard = () => {
   const galleryImages = [
@@ -12,6 +16,18 @@ const Dashboard = () => {
     { id: 5, alt: "Pertandingan Voli" },
     { id: 6, alt: "Lomba Renang" },
   ];
+
+  const [pesan, setPesan] = useState('');
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/atlet")
+      .then((res) => {
+        setPesan(res.data.message);
+      })
+      .catch((err) => {
+        console.error('Gagal ambil data:', err);
+      });
+  }, []);
 
   return (
     <div
