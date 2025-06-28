@@ -1,55 +1,76 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import axios from "axios";
 
-const CABANG_OLAHRAGA = [
-  "HAPKIDO",
-];
-
-const NOMOR_PERTANDINGAN = {
-  HAPKIDO: [
-    "Individual Hyung PUTRI",
-    "Individual Hyung PUTRA",
-    "Bezpasangan Hoehnsul PUTRI",
-    "Bezpasangan Hoehnsul PUTRA",
-    "Hospital Gaya Bebas (Free Style)",
-  ],
-};
-
-axios.get("http://localhost:8080/api/atlet")
-.then((res) => {
-  athletes=res.data.data
-})
-.catch((err) => {
-  console.error('Gagal ambil data:', err);
-});
-
-var athletes = [];
 
 const AthletesPage = () => {
+  const [nomorList, setNomorList] = useState([]);
+  const [cabangOlahragaList, setCabangOlahragaList] = useState([]);
+  const [athletes, setAthletes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filterCabor, setFilterCabor] = useState("");
   const [filterNomor, setFilterNomor] = useState("");
 
   const athletesPerPage = 9;
 
-  const uniqueNomors = useMemo(() => {
-    if (!filterCabor) return [];
-    return NOMOR_PERTANDINGAN[filterCabor] || [];
-  }, [filterCabor]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/atlet")
+      .then((res) => {
+        setAthletes(res.data.data);
+      })
+      .catch((err) => {
+        console.error("Gagal ambil data:", err);
+      });
+
+    axios
+      .get("http://localhost:8080/api/cabor")
+      .then((res) => {
+        setCabangOlahragaList(res.data.data);
+      })
+      .catch((err) => {
+        console.error("Gagal ambil data:", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (filterCabor) {
+      // Cari id cabor dari nama_cabor
+      const selectedCabor = cabangOlahragaList.find(
+        (cabor) => cabor.nama_cabor === filterCabor
+      );
+      if (selectedCabor) {
+        axios
+          .get(`http://localhost:8080/api/nomor/cabor/${selectedCabor.id}`)
+          .then((res) => {
+            setNomorList(res.data.data);
+          })
+          .catch((err) => {
+            setNomorList([]);
+            console.error("Gagal ambil data nomor:", err);
+          });
+      } else {
+        setNomorList([]);
+      }
+    } else {
+      setNomorList([]);
+    }
+  }, [filterCabor, cabangOlahragaList]);
+
+  const uniqueNomors = useMemo(() => nomorList, [nomorList]);
 
   const filteredAthletes = useMemo(() => {
     return athletes.filter((athlete) => {
       const matchesCabor =
-        filterCabor === "" || athlete.cabangOlahraga === filterCabor;
+      filterCabor === "" || athlete.cabor.nama_cabor === filterCabor;    
       const matchesNomor = filterNomor === "" || athlete.nomor === filterNomor;
       return matchesCabor && matchesNomor;
     });
-  }, [filterCabor, filterNomor]);
+  }, [athletes, filterCabor, filterNomor]);
 
   // Pagination
   const indexOfLastAthlete = currentPage * athletesPerPage;
@@ -109,9 +130,9 @@ const AthletesPage = () => {
               }}
             >
               <option value="">Semua Cabang Olahraga</option>
-              {CABANG_OLAHRAGA.map((cabor, index) => (
-                <option key={index} value={cabor}>
-                  {cabor}
+              {cabangOlahragaList.map((cabor) => (
+                <option key={cabor.Id} value={cabor.nama_cabor}>
+                  {cabor.nama_cabor}
                 </option>
               ))}
             </select>
@@ -145,9 +166,9 @@ const AthletesPage = () => {
               disabled={!filterCabor}
             >
               <option value="">Semua Nomor Pertandingan</option>
-              {uniqueNomors.map((nomor, index) => (
-                <option key={index} value={nomor}>
-                  {nomor}
+              {uniqueNomors.map((nomor) => (
+                <option key={nomor.id} value={nomor.nama_nomor}>
+                  {nomor.nama_nomor}
                 </option>
               ))}
             </select>

@@ -1,12 +1,9 @@
 package controllers
-
 import (
 	"backend_golang/setup"
 	"net/http"
-
 	"github.com/gin-gonic/gin"
 )
-
 func HealthCheck(c *gin.Context) {
 	sqlDB, err := setup.DB.DB()
 	if err != nil {
@@ -17,7 +14,6 @@ func HealthCheck(c *gin.Context) {
 		})
 		return
 	}
-
 	if err := sqlDB.Ping(); err != nil {
 		c.JSON(http.StatusServiceUnavailable, gin.H{
 			"status":   "unhealthy", 
@@ -26,7 +22,6 @@ func HealthCheck(c *gin.Context) {
 		})
 		return
 	}
-
 	c.JSON(http.StatusOK, gin.H{
 		"status":   "healthy",
 		"database": "connected",

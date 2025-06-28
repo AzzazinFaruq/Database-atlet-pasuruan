@@ -1,12 +1,17 @@
 package models
-
 import (
 	"time"
 )
-
 type HasilPertandingan struct {
-	Id        uint      `gorm:"primary_key" json:"id"`
-	Medal     string    `json:"medal"`
-	CreatedAt time.Time `gorm:"type:timestamp;default:current_timestamp"`
-	UpdatedAt time.Time `gorm:"type:timestamp;default:current_timestamp on update current_timestamp"`
+	Id        uint      `gorm:"primaryKey;autoIncrement" json:"id"`
+	AtletId   uint      `json:"atlet_id" gorm:"not null;index"`
+	NomorId   uint      `json:"nomor_id" gorm:"not null;index"`
+	EventName string    `json:"event_name" gorm:"type:varchar(255);default:'Porprov Pasuruan 2025'"`
+	Medali    string    `json:"medali" gorm:"type:enum('Emas','Perak','Perunggu','Partisipasi');not null"`
+	Catatan   string    `json:"catatan" gorm:"type:text"`
+	// Foreign Key relationships
+	Atlet     Atlet     `gorm:"foreignKey:AtletId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"atlet,omitempty"`
+	Nomor     Nomor     `gorm:"foreignKey:NomorId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"nomor,omitempty"`
+	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }

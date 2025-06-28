@@ -1,10 +1,7 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/daftar-atlet/[id]/page": "app/daftar-atlet/[id]/page.js",
   "/daftar-atlet/page": "app/daftar-atlet/page.js",
   "/dokumentasi/page": "app/dokumentasi/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/hasil-pertandingan/[id]/page": "app/hasil-pertandingan/[id]/page.js",
-  "/hasil-pertandingan/page": "app/hasil-pertandingan/page.js",
-  "/page": "app/page.js"
+  "/hasil-pertandingan/page": "app/hasil-pertandingan/page.js"
 }

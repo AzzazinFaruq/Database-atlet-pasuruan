@@ -1,14 +1,12 @@
 package models
-
 import (
 	"time"
 )
-
 type Dokumentasi struct {
-	Id          uint      `gorm:"primary_key"`
-	Dokumentasi string    `json:"dokumentasi"`
-	AtletId     *uint     `json:"atlet_id"`
-	Atlet       *Atlet    `gorm:"foreignKey:AtletId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	CreatedAt   time.Time `gorm:"type:timestamp;default:current_timestamp" json:"created_at"`
-	UpdatedAt   time.Time `gorm:"type:timestamp;default:current_timestamp on update current_timestamp" json:"updated_at"`
+	Id          uint      `gorm:"primaryKey;autoIncrement" json:"id"`
+	Dokumentasi string    `json:"dokumentasi" gorm:"type:varchar(255);not null"`
+	AtletId     uint      `json:"atlet_id" gorm:"not null;index"`
+	Atlet       Atlet     `gorm:"foreignKey:AtletId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"atlet,omitempty"`
+	CreatedAt   time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt   time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }

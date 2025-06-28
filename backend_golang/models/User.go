@@ -1,9 +1,7 @@
 package models
-
 import (
 	"time"
 )
-
 type User struct {
 	Id        uint      `gorm:"primary_key"`
 	Username  string    `json:"username" gorm:"not null;unique"`

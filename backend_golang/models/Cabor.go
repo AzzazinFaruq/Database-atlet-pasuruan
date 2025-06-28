@@ -1,23 +1,23 @@
 package models
-
 import (
 	"time"
 )
-
 type Cabor struct {
-	Id        uint               `gorm:"primary_key"`
-	NamaCabor string             `json:"nama_cabor"`
-	HasilId   *uint              `json:"hasil_id"`
-	Hasil     *HasilPertandingan `gorm:"foreignKey:HasilId;references:Id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
-	CreatedAt time.Time          `gorm:"type:timestamp;default:current_timestamp"`
-	UpdatedAt time.Time          `gorm:"type:timestamp;default:current_timestamp on update current_timestamp"`
+	Id        uint      `gorm:"primaryKey;autoIncrement" json:"id"`
+	NamaCabor string    `json:"nama_cabor" gorm:"type:varchar(255);uniqueIndex;not null"`
+	// One-to-Many relationships
+	Nomors    []Nomor    `gorm:"foreignKey:CaborID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"nomors,omitempty"`
+	Atlets    []Atlet   `gorm:"foreignKey:CaborId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"atlets,omitempty"`
+	CreatedAt time.Time  `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time  `gorm:"autoUpdateTime" json:"updated_at"`
 }
-
 type Nomor struct {
-	Id        uint      `gorm:"primary_key"`
-	NamaNomor string    `json:"nama_nomor"`
-	CaborID   *uint     `json:"cabor_id"`
-	Cabor     *Cabor    `gorm:"foreignKey:CaborID;references:Id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
-	CreatedAt time.Time `gorm:"type:timestamp;default:current_timestamp"`
-	UpdatedAt time.Time `gorm:"type:timestamp;default:current_timestamp on update current_timestamp"`
+	Id        uint      `gorm:"primaryKey;autoIncrement" json:"id"`
+	NamaNomor string    `json:"nama_nomor" gorm:"type:varchar(255);not null"`
+	CaborID   uint      `json:"cabor_id" gorm:"not null;index"`
+	Cabor     Cabor     `gorm:"foreignKey:CaborID;references:Id;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"cabor,omitempty"`
+	// One-to-Many relationship
+	Hasil     []HasilPertandingan `gorm:"foreignKey:NomorId;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"hasil,omitempty"`
+	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
